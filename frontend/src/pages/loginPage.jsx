@@ -171,7 +171,6 @@ function LoginPage() {
                     setPassword(e.target.value);
                     setError("");
                   }}
-                 
                 />
                 <button
                   type="button"
