@@ -1,30 +1,39 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../context/store";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function EditUser() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
+  const [user,setUser]=useState({name:'',email:'',role:''})
 
-  // Destructure context (Added updateUser function to context expectation)
   const {
-    getUser,
-    user,
-    // updateUser: contextUpdateUser,
+   url,token
   } = useContext(StoreContext);
 
-  // Local state for the form
-  const [formData, setFormData] = useState({
+
+
+
+   const getUser = async (paramId) => {
+      try {
+        const response = await axios.get(`${url}/user/get/${paramId}`);
+        if (response.data.success) {
+          setUser(response.data.user);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  const [data, setData] = useState({
     name: "",
     email: "",
     role: "user",
   });
 
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState({ type: "", text: "" });
-
-  // 1. Fetch User Data
+  
   useEffect(() => {
     const fetchUser = async () => {
       if (id) {
@@ -36,10 +45,9 @@ function EditUser() {
     fetchUser();
   }, [id]);
 
-  // 2. Sync Local State when 'user' from context changes
   useEffect(() => {
     if (user) {
-      setFormData({
+      setData({
         name: user.name || "",
         email: user.email || "",
         role: user.role || "admin",
@@ -47,39 +55,51 @@ function EditUser() {
     }
   }, [user]);
 
-  // 3. Handle Input Changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  // 4. Handle Form Submission
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage({ type: "", text: "" });
+    setIsLoading(true);
 
     try {
-      // Assuming contextUpdateUser takes (id, data) and returns a promise
-      if (contextUpdateUser) {
-        await contextUpdateUser(id, formData);
-        setMessage({ type: "success", text: "User updated successfully!" });
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
+          formData.append(key, data[key]);
+        }
+      });
+  
 
-        // Optional: Redirect after success
-        // setTimeout(() => navigate('/users'), 1500);
+      const response = await axios.patch(
+        `${url}/user/update/${id}`,
+        formData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.data.success) {
+        alert("Profile updated successfully!");
+        navigate(-1)
       } else {
-        console.log("Updated Data:", formData);
-        setMessage({
-          type: "success",
-          text: "Form valid! (Connect API to save)",
-        });
+        alert(response.data.msg);
       }
+
+      console.log(response.data);
     } catch (error) {
-      setMessage({ type: "error", text: "Failed to update user." });
+      console.error(error);
+      alert("An error occurred while updating your profile.");
+    } finally {
+      setIsLoading(false);
     }
   };
+
 
   if (isLoading) {
     return (
@@ -90,7 +110,7 @@ function EditUser() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen w-full bg-gray-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-lg w-full max-w-md overflow-hidden">
         {/* Header */}
         <div className="bg-blue-600 px-6 py-4">
@@ -99,7 +119,7 @@ function EditUser() {
         </div>
 
         {/* Feedback Message */}
-        {message.text && (
+        {/* {message.text && (
           <div
             className={`px-6 py-3 text-sm font-medium ${
               message.type === "success"
@@ -109,7 +129,7 @@ function EditUser() {
           >
             {message.text}
           </div>
-        )}
+        )} */}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5">
@@ -126,7 +146,7 @@ function EditUser() {
               name="name"
               type="text"
               required
-              value={formData.name}
+              value={data.name}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
               placeholder="John Doe"
@@ -146,7 +166,7 @@ function EditUser() {
               name="email" // Fixed: was 'name'
               type="email"
               required
-              value={formData.email}
+              value={data.email}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
               placeholder="john@example.com"
@@ -165,13 +185,13 @@ function EditUser() {
               <select
                 id="role"
                 name="role"
-                value={formData.role}
+                value={data.role}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all bg-white"
               >
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-                <option value="moderator">Moderator</option>
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+                <option value="superadmin">superadmin</option>
               </select>
               {/* Custom Arrow Icon */}
               <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">

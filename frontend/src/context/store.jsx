@@ -38,6 +38,21 @@ export const StoreContextProvider = ({ children }) => {
       console.log(error);
     }
   };
+   const deleteUser= async (id) => {
+    try {
+      const response = await axios.delete(`${url}/user/remove/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.data) {
+        setTimeout(() => {
+          alert(response.data.msg);
+        }, 500);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const deleteItem = async (id) => {
     try {
@@ -114,7 +129,7 @@ export const StoreContextProvider = ({ children }) => {
         id,
         item,
         setItem,
-        getUsers,
+        getUsers,deleteUser,
         users,
         getItem,
         logOut,

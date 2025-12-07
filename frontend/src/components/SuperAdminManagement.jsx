@@ -6,13 +6,17 @@ import { assets } from "../assets/assets";
 
 function SuperAdminManagement() {
   const navigate = useNavigate();
-  const { users, getUsers, url } = useContext(StoreContext);
+  const { users, getUsers, deleteUser, url } = useContext(StoreContext);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     getUsers();
-    console.log(users);
-  }, []);
+    // console.log(users);
+  }, [users]);
+
+  const manageDelete = (id) => {
+    deleteUser(id);
+  };
 
   const filteredUsers = Array.isArray(users)
     ? users.filter((user) =>
@@ -76,7 +80,9 @@ function SuperAdminManagement() {
               <div className="p-5 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    {/* <p className="text-xs text-orange-500 font-bold uppercase tracking-wide mb-1">{item.category}</p> */}
+                    <p className="text-xs text-orange-500 font-bold uppercase tracking-wide mb-1">
+                      {user.role}
+                    </p>
                     <h3 className="font-bold text-gray-800 text-lg leading-tight">
                       {user.name}
                     </h3>
@@ -90,12 +96,17 @@ function SuperAdminManagement() {
                 {/* Action Buttons */}
                 <div className="grid grid-cols-2 gap-3 mt-auto pt-4 border-t border-gray-100">
                   <button
-                    onClick={() => navigate(`/superadmin/editUser?id=${user._id}`)}
+                    onClick={() =>
+                      navigate(`/superadmin/editUser?id=${user._id}`)
+                    }
                     className="flex items-center justify-center gap-2 py-2 rounded-lg bg-gray-50 text-gray-600 font-medium hover:bg-blue-50 hover:text-blue-600 transition-colors"
                   >
                     <FaEdit /> Edit
                   </button>
-                  <button className="flex items-center justify-center gap-2 py-2 rounded-lg bg-gray-50 text-gray-600 font-medium hover:bg-red-50 hover:text-red-600 transition-colors">
+                  <button
+                    onClick={()=>manageDelete(user._id)}
+                    className="flex items-center justify-center gap-2 py-2 rounded-lg bg-gray-50 text-gray-600 font-medium hover:bg-red-50 hover:text-red-600 transition-colors"
+                  >
                     <FaTrashAlt /> Delete
                   </button>
                 </div>
