@@ -63,40 +63,36 @@ function ProfileSetting() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSaving(true);
+
     try {
-      // const formData = new FormData();
-      // for (const key in data) {
-      //   if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
-      //     formData.append(key, data[key]);
-      //   }
-      // }
-      // if (image) {
-      //   formData.append("profileImage", image);
-      // }
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
+          formData.append(key, data[key]);
+        }
+      });
+      if (image) formData.append("profileImage", image);
+
       const response = await axios.patch(
         `${url}/user/update/${user._id}`,
-        data,
+        formData,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      if (response.data.success) {
-        setTimeout(() => {
-          setIsSaving(false);
 
-          alert("Profile updated successfully!");
-        }, 1500);
+      if (response.data.success) {
+        alert("Profile updated successfully!");
       } else {
         alert(response.data.msg);
       }
 
       console.log(response.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert("An error occurred while updating your profile.");
     } finally {
-      setTimeout(() => {
-        setIsSaving(false);
-      }, 1500);
+      setIsSaving(false);
     }
   };
 
@@ -120,7 +116,11 @@ function ProfileSetting() {
         <div className="relative px-8">
           <div className="-mt-16 w-32 h-32 rounded-full border-4 border-white shadow-md bg-gray-200 relative group mx-auto md:mx-0">
             <img
-              src={previewUrl}
+              src={
+                user.profileImage
+                  ? `${url}/uploads/${user.profileImage}`
+                  : previewUrl
+              }
               alt="Profile"
               className="w-full h-full object-cover rounded-full"
             />
@@ -166,7 +166,7 @@ function ProfileSetting() {
                 <input
                   type="text"
                   name="name"
-                  value={data.name}
+                  value={data.name} required
                   onChange={(e) => updateData(e)}
                   className="flex-1 bg-transparent outline-none text-gray-700 font-medium"
                   placeholder="Enter your name"

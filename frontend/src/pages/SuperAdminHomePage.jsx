@@ -8,6 +8,7 @@ import SuperAdminManagement from "../components/SuperAdminManagement";
 import RegisterNewUser from "../components/RegisterNewUser";
 import Setting from "../components/Setting";
 import EditUser from "../components/EditUser";
+import ProfileSetting from "../components/ProfileSetting";
 
 
 function SuperAdminHomePage() {
@@ -22,6 +23,7 @@ function SuperAdminHomePage() {
           <Route path="/editUser" element={<EditUser />}></Route>
           <Route path="/setting" element={<Setting/>}></Route>
           <Route path="/register" element={<RegisterNewUser />}></Route>
+            <Route path="/profileSetting" element={<ProfileSetting />}></Route>
           
 
 

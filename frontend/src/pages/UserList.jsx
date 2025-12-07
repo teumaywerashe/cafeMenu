@@ -15,7 +15,7 @@ function UserList() {
 
   const filteredUser = users.filter((user) => {
     return (
-   user.role === "user" &&
+   user.role === "admin" &&
       user.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   });

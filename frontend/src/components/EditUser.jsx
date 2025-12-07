@@ -42,7 +42,7 @@ function EditUser() {
       setFormData({
         name: user.name || "",
         email: user.email || "",
-        role: user.role || "user",
+        role: user.role || "admin",
       });
     }
   }, [user]);

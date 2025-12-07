@@ -1,4 +1,4 @@
-import React, { useContext, } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   FaCog,
   FaTachometerAlt,
@@ -10,9 +10,12 @@ import { NavLink } from "react-router-dom";
 import { StoreContext } from "../context/store";
 
 function Sidebar() {
-  const { user,logOut } = useContext(StoreContext);
-  // Helper to keep code clean.
-  // We define common styles here and only change colors based on isActive.
+  const { user, logOut, url } = useContext(StoreContext);
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
+
   const getLinkClasses = ({ isActive }) => {
     const baseClasses =
       "flex items-center gap-3 px-4 py-3.5 mx-3 rounded-lg transition-all duration-200 font-medium";
@@ -65,7 +68,11 @@ function Sidebar() {
           <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
             {/* Placeholder Avatar */}
             <img
-              src="https://ui-avatars.com/api/?name=Super+Admin&background=random"
+              src={
+                user.profileImage
+                  ? `${url}/uploads/${user.profileImage}`
+                  : "https://ui-avatars.com/api/?name=Super+Admin&background=random"
+              }
               alt="Admin"
             />
           </div>
@@ -75,7 +82,10 @@ function Sidebar() {
             </p>
             <p className="text-xs text-gray-500 truncate">{user.email}</p>
           </div>
-          <button onClick={logOut} className="text-gray-400 hover:text-red-500 transition-colors">
+          <button
+            onClick={logOut}
+            className="text-gray-400 hover:text-red-500 transition-colors"
+          >
             <FaSignOutAlt size={18} />
           </button>
         </div>

@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaUserCircle,
   FaShieldAlt,
@@ -8,36 +8,45 @@ import {
   FaPalette,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { StoreContext } from "../context/store";
 
 function Setting() {
-  // Data structure to make adding new settings easier
+
+  const navigate=useNavigate()
+const {role,logOut}=useContext(StoreContext)
+
+// const handleLogout=()=>{
+//   alert('loged out')
+//   logOut();
+//  
+// }
   const settingOptions = [
     {
       title: "Profile Settings",
       description: "Update your profile photo, name, and contact details.",
       icon: <FaUserCircle size={24} />,
-      path: "/admin/profileSetting",
+      path:`/${role}/profileSetting`,
       color: "text-blue-600 bg-blue-50",
     },
     {
       title: "Account & Security",
       description: "Manage bank accounts, change password, and security roles.",
       icon: <FaShieldAlt size={24} />,
-      path: "/admin/accountSetting", // Assuming you have this route
+      path: `/${role}/accountSetting"`, // Assuming you have this route
       color: "text-purple-600 bg-purple-50",
     },
     {
       title: "Notifications",
       description: "Choose what alerts and emails you want to receive.",
       icon: <FaBell size={24} />,
-      path: "/admin/notifications",
+      path: `/${role}/notifications`,
       color: "text-amber-600 bg-amber-50",
     },
     {
       title: "App Appearance",
       description: "Toggle Dark Mode or change the dashboard theme.",
       icon: <FaPalette size={24} />,
-      path: "/admin/appearance",
+      path: `/${role}/appearance`,
       color: "text-teal-600 bg-teal-50",
     },
   ];
@@ -95,8 +104,8 @@ function Setting() {
 
         {/* --- Logout Section (Optional but recommended) --- */}
         <div className="mt-8 border-t border-gray-200 pt-6">
-          <button className="flex items-center gap-3 text-red-500 font-medium hover:bg-red-50 px-4 py-3 rounded-lg w-full transition-colors">
-            <FaSignOutAlt />
+          <button  onClick={logOut} className="flex items-center gap-3 text-red-500 font-medium hover:bg-red-50 px-4 py-3 rounded-lg w-full transition-colors" >
+            <FaSignOutAlt  />
             <span>Log Out</span>
           </button>
         </div>

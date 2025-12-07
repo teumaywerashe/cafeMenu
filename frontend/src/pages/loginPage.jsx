@@ -41,7 +41,7 @@ function LoginPage() {
         setRole(response.data.user.role);
         console.log(response.data.user._id);
         setOwnerId(response.data.user._id);
-        response.data.user.role === "user"
+        response.data.user.role === "admin"
           ? navigate(`/admin/dashboard`)
           : navigate(`/superadmin/dashboard`);
       }
@@ -171,7 +171,7 @@ function LoginPage() {
                     setPassword(e.target.value);
                     setError("");
                   }}
-                  required
+                 
                 />
                 <button
                   type="button"
