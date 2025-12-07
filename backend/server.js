@@ -35,7 +35,7 @@ app.use(
 );
 
 const allowedOrigins = [
-    "https://your-frontend.onrender.com",
+    "https://CafeMenu123.onrender.com/",
     "http://localhost:5173"
 ];
 

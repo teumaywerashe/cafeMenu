@@ -6,7 +6,7 @@ export const StoreContext = createContext();
 
 export const StoreContextProvider = ({ children }) => {
   const navigate = useNavigate();
-  const url='https://cafemenu-website.onrender.com'
+  const url = import.meta.env.VITE_API_URL;
   // const url = "http://localhost:3000";
 
   const [searchParams] = useSearchParams();
@@ -39,7 +39,7 @@ export const StoreContextProvider = ({ children }) => {
       console.log(error);
     }
   };
-   const deleteUser= async (id) => {
+  const deleteUser = async (id) => {
     try {
       const response = await axios.delete(`${url}/user/remove/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -130,7 +130,8 @@ export const StoreContextProvider = ({ children }) => {
         id,
         item,
         setItem,
-        getUsers,deleteUser,
+        getUsers,
+        deleteUser,
         users,
         getItem,
         logOut,
