@@ -30,14 +30,11 @@ app.use(
     express.static(path.join(__dirname, "uploads"))
 );
 
-const allowedOrigins = [
-    "https://cafemenu123.onrender.com/",
-    "http://localhost:5173",
-];
+
 
 app.use(
     cors({
-        origin: allowedOrigins,
+        origin: ["http://localhost:5173", /\.onrender\.com$/],
         credentials: true,
     })
 );
