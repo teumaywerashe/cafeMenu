@@ -3,7 +3,6 @@ import Heros from "../components/Heros";
 import Navbar from "../components/Navebar";
 
 import ItemsDisplay from "../components/ItemsDisplay";
-import Account from "../components/Account";
 
 function UserHomePage() {
   return (
@@ -11,7 +10,7 @@ function UserHomePage() {
       <Navbar />
       <Heros />
       <ItemsDisplay />
-      {/* <Account/> */}
+    
     </>
   );
 }

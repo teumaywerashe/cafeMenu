@@ -4,7 +4,7 @@ import { StoreContextProvider } from "./context/store";
 import { Route, Routes } from "react-router-dom";
 import SuperAdminHomePage from "./pages/SuperAdminHomePage";
 import AdminHomePage from "./pages/AdminHomePage";
-import UserHomePage from "./pages/userHomePage";
+import UserHomePage from "./pages/UserHomePage";
 import LoginPage from "./pages/loginPage";
 import UserList from "./pages/UserList";
 
