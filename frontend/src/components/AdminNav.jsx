@@ -19,7 +19,7 @@ function AdminNav() {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { logOut, getUser, user, url } = useContext(StoreContext);
+  const { logOut, getUser, role, user, ownerId, url } = useContext(StoreContext);
 
   // Refs for click-outside logic
   const mobileMenuRef = useRef(null);
@@ -27,9 +27,8 @@ function AdminNav() {
   const mobileBtnRef = useRef(null);
   const profileBtnRef = useRef(null);
 
-  
-useEffect(() => {
-    getUser();
+  useEffect(() => {
+    getUser(ownerId);
   }, [user]);
   // Handle Click Outside
   useEffect(() => {
@@ -59,7 +58,6 @@ useEffect(() => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMobileMenuOpen, isProfileOpen]);
 
-  
   // Logout Handler
   const handleLogout = () => {
     logOut();
@@ -67,9 +65,21 @@ useEffect(() => {
   };
 
   const navLinks = [
-    { name: "Dashboard", path: "/admin/dashboard", icon: <FaTachometerAlt /> },
-    { name: "Management", path: "/admin/management", icon: <FaUserCog /> },
-    { name: "Settings", path: "/admin/setting", icon: <FaCog /> },
+    {
+      name: "Dashboard",
+      path: role === "user" ? "/admin/dashboard" : "/superadmin/dashboard",
+      icon: <FaTachometerAlt />,
+    },
+    {
+      name: "Management",
+      path: role === "user" ? "/admin/management" : "/superadmin/management",
+      icon: <FaUserCog />,
+    },
+    {
+      name: "Settings",
+      path: role === "user" ? "/admin/setting" : "/superadmin/setting",
+      icon: <FaCog />,
+    },
   ];
 
   return (
@@ -99,13 +109,12 @@ useEffect(() => {
             <span className="text-lg md:text-xl font-bold text-gray-800 tracking-tight">
               The Daily Feast{" "}
               <span className="text-orange-500 text-xs uppercase tracking-wider hidden lg:inline-block ml-1">
-                Admin
+                {role}
               </span>
             </span>
           </div>
         </div>
 
-        {/* --- RIGHT SECTION: Actions & Profile --- */}
         <div className="flex items-center gap-4 md:gap-6">
           {/* Notification Icon (Visual only) */}
           <button className="relative text-gray-400 hover:text-orange-500 transition-colors">
@@ -123,9 +132,9 @@ useEffect(() => {
               <img
                 className="w-9 h-9 rounded-full object-cover border border-gray-200 group-hover:border-orange-500 transition-all"
                 src={
-                  user.profileImage==='default.jpg'
-                    ? assets.profile_icon:`${url}/uploads/${user.profileImage}`
-                     
+                  user.profileImage === "default.jpg"
+                    ? assets.profile_icon
+                    : `${url}/uploads/${user.profileImage}`
                 }
                 alt="Profile"
               />

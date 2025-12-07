@@ -14,18 +14,16 @@ import {
 
 function Navbar() {
   const navigate = useNavigate();
-  const { categories,category,setCategory, setSearchTerm, id, searchTerm} =
+  const {  setSearchTerm, id, searchTerm } =
     useContext(StoreContext);
-
 
   // States
   const [isOpen, setIsOpen] = useState(false); // Mobile Menu
-  const [showMenuList, setShowMenuList] = useState(false); // "More" Dropdown
+  // const [showMenuList, setShowMenuList] = useState(false); // "More" Dropdown
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const navRef = useRef(null);
-  const menuListRef = useRef(null);
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
@@ -34,17 +32,13 @@ function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Handle Click Outside (Combined logic)
   useEffect(() => {
     const handleClickOutside = (event) => {
       // Close Mobile Menu if clicked outside
       if (navRef.current && !navRef.current.contains(event.target)) {
         setIsOpen(false);
       }
-      // Close "More" Dropdown if clicked outside
-      if (menuListRef.current && !menuListRef.current.contains(event.target)) {
-        setShowMenuList(false);
-      }
+    
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -77,6 +71,17 @@ function Navbar() {
               <FaUtensils />
             )}
           </div>
+          {id && (
+            <span
+              className={`font-bold text-xl md:text-2xl tracking-tight ${
+                scrolled ? "text-gray-800" : "text-gray-800 md:text-gray-800"
+              }`}
+            >
+              The Daily Feast
+            </span>
+          )}
+        </div>
+        {!id && (
           <span
             className={`font-bold text-xl md:text-2xl tracking-tight ${
               scrolled ? "text-gray-800" : "text-gray-800 md:text-gray-800"
@@ -84,116 +89,109 @@ function Navbar() {
           >
             The Daily Feast
           </span>
-        </div>
+        )}
 
         {/* --- CENTER: DESKTOP NAV --- */}
-        <nav className="hidden md:flex items-center gap-8">
-          {["HOME", "MENU", "ABOUT US", "CONTACT"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(" ", "")}`}
-              className="text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors uppercase tracking-wide"
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
+        {id && (
+          <nav className="hidden md:flex items-center gap-8">
+            {["HOME", "MENU", "ABOUT US", "CONTACT"].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase().replace(" ", "")}`}
+                className="text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors uppercase tracking-wide"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+        )}
 
         {/* --- RIGHT: ACTIONS --- */}
         <div className="flex items-center gap-3 md:gap-6">
           {/* Search Bar (Expandable) */}
-          <div
-            className={`flex items-center bg-white border border-gray-200 rounded-full px-3 py-1.5 shadow-sm transition-all duration-300 ${
-              showSearchInput ? "w-48 md:w-64" : "w-10"
-            }`}
-          >
-            <FaSearch
-              className="text-gray-500 cursor-pointer hover:text-orange-500 shrink-0"
-              onClick={() => setShowSearchInput(!showSearchInput)}
-            />
-            <input
-              type="text"
-              value={searchTerm}
-              placeholder="Search..."
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={`ml-2 bg-transparent outline-none text-sm text-gray-700 w-full ${
-                showSearchInput ? "block" : "hidden"
-              }`}
-            />
-          </div>
-
-          {/* "More" Dropdown (Categories) */}
-          <div className="relative" ref={menuListRef}>
-            <button
-              onClick={() => setShowMenuList(!showMenuList)}
-              className="hidden md:flex items-center gap-1 text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors"
-            >
-              Categories{" "}
-              <FaChevronDown
-                className={`text-xs transition-transform duration-200 ${
-                  showMenuList ? "rotate-180" : ""
+          {id && (
+            <>
+              {" "}
+              <div
+                className={`flex items-center bg-white border border-gray-200 rounded-full px-3 py-1.5 shadow-sm transition-all duration-300 ${
+                  showSearchInput ? "w-48 md:w-64" : "w-10"
                 }`}
-              />
-            </button>
-
-            {/* Dropdown Menu */}
-            {showMenuList && (
-              <div className="absolute top-10 right-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2 animate-fadeIn origin-top-right">
-                {/* 'All' Option */}
-                <button
-                  onClick={() => {
-                    setCategory("All");
-                    setShowMenuList(false);
-                  }}
-                  className={`w-full cursor-pointer text-left px-4 py-2 text-sm hover:bg-orange-50 transition-colors ${
-                    categories === "All"
-                      ? "text-orange-600 font-bold bg-orange-50"
-                      : "text-gray-600"
+              >
+                <FaSearch
+                  className="text-gray-500 cursor-pointer hover:text-orange-500 shrink-0"
+                  onClick={() => setShowSearchInput(!showSearchInput)}
+                />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  placeholder="Search..."
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className={`ml-2 bg-transparent outline-none text-sm text-gray-700 w-full ${
+                    showSearchInput ? "block" : "hidden"
                   }`}
+                />
+              </div>
+              {/* <div className="relative" ref={menuListRef}>
+                <button
+                  onClick={() => setShowMenuList(!showMenuList)}
+                  className="hidden md:flex items-center gap-1 text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors"
                 >
-                  All Items
+                  Categories{" "}
+                  <FaChevronDown
+                    className={`text-xs transition-transform duration-200 ${
+                      showMenuList ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
-                <div className="h-px bg-gray-100 my-1"></div>
 
-                {/* categories List */}
-                <div className="max-h-64 overflow-y-auto custom-scrollbar">
-                  {categories?.map((item, i) => (
-                    <a
-                      key={i}
-                      href="#menu"
+                {showMenuList && (
+                  <div className="absolute top-10 right-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2 animate-fadeIn origin-top-right">
+               
+                    <button
                       onClick={() => {
-                        setCategory((prev) => (prev === item ? "All" : item));
+                        setCategory("All");
                         setShowMenuList(false);
                       }}
-                      className={`block px-4 py-2 text-sm hover:bg-orange-50 transition-colors ${
-                        category === item
-                          ? "text-orange-600 font-bold"
+                      className={`w-full cursor-pointer text-left px-4 py-2 text-sm hover:bg-orange-50 transition-colors ${
+                        categories === "All"
+                          ? "text-orange-600 font-bold bg-orange-50"
                           : "text-gray-600"
                       }`}
                     >
-                      {item}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+                      All Items
+                    </button>
+                    <div className="h-px bg-gray-100 my-1"></div>
+
+                  </div>
+                )}
+              </div> */}
+            </>
+          )}
 
           {/* Login / Get Started */}
           <button
             onClick={() => navigate("/login")}
-            className="hidden md:block bg-gray-900 hover:bg-orange-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-all shadow-lg shadow-gray-900/20 hover:shadow-orange-500/30"
+            className="hidden md:block hover:bg-gray-900 bg-orange-500 text-white px-5 py-2 rounded-full text-sm font-medium transition-all shadow-lg shadow-gray-900/20 hover:shadow-orange-500/30"
           >
-            Get Started
+            Login
           </button>
 
           {/* Mobile Toggle Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-700 hover:text-orange-500 cursor-pointer text-2xl focus:outline-none"
-          >
-            {isOpen ? <FaTimes /> : <FaBars />}
-          </button>
+          {id ? (
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden text-gray-700 hover:text-orange-500 cursor-pointer text-2xl focus:outline-none"
+            >
+              {isOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="md:hidden hover:bg-gray-900 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium transition-all shadow-lg shadow-gray-900/20 hover:shadow-orange-500/30"
+            >
+              Login
+            </button>
+          )}
         </div>
       </div>
 
@@ -218,7 +216,7 @@ function Navbar() {
           ))}
 
           {/* Mobile Categories Accordion */}
-          <div className="pt-2">
+          {/* <div className="pt-2">
             <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
               Categories
             </p>
@@ -244,7 +242,7 @@ function Navbar() {
                 </a>
               ))}
             </div>
-          </div>
+          </div> */}
 
           <button
             onClick={() => {

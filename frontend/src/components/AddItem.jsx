@@ -1,14 +1,14 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
 // import { assets } from "../assets/assets"; // Keeping your asset import
-import { FaCloudUploadAlt, FaEraser, FaPlus } from "react-icons/fa";
+import { FaClosedCaptioning, FaCloudUploadAlt, FaEraser, FaHandMiddleFinger, FaPlus, FaRemoveFormat, FaXbox, FaXing, FaXRay } from "react-icons/fa";
 import { StoreContext } from "../context/store";
 import { useNavigate } from "react-router-dom";
+import { PlusIcon, X } from "lucide-react";
 
 function AddItem() {
-
-  const navigate=useNavigate()
-  const { url, ownerId, token } = useContext(StoreContext);
+  const navigate = useNavigate();
+  const {categories, url, ownerId, token } = useContext(StoreContext);
 
   // 1. Centralized State for Form Data
   const [data, setData] = useState({
@@ -22,18 +22,10 @@ function AddItem() {
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  // const [newCategory, setNewCategory] = useState("");
+  const [showNewCategoryInput, setShowNewCategoryInput] = useState(false);
   // List of Categories (Easier to manage)
-  const categories = [
-    "Salad",
-    "Sandwich",
-    "Rolls",
-    "Pure Veg",
-    "Dessert",
-    "Pasta",
-    "Noodles",
-    "Cake",
-  ];
+  
 
   // 2. Handle Text Input Changes
   const onChangeHandler = (event) => {
@@ -69,11 +61,11 @@ function AddItem() {
         "Content-Type": "multipart/form-data",
       });
       if (response.data.success) {
-        console.log(response.data.item)
+        console.log(response.data.item);
         setTimeout(() => {
           alert("Item Added Successfully!");
         }, 1500);
-        navigate('/admin/dashboard')
+        navigate("/admin/dashboard");
       } else {
         setTimeout(() => {
           alert(response.data.msg);
@@ -176,11 +168,14 @@ function AddItem() {
                   <label className="font-semibold text-gray-700 text-sm">
                     Category
                   </label>
-                  <select
+
+
+                  <div className="flex items-center justify-between"> 
+                    <select
                     name="category"
                     value={data.category}
                     onChange={onChangeHandler}
-                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 bg-white cursor-pointer"
+                    className="p-3 border border-gray-300 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 bg-white cursor-pointer"
                   >
                     {categories.map((cat) => (
                       <option key={cat} value={cat}>
@@ -188,28 +183,39 @@ function AddItem() {
                       </option>
                     ))}
                   </select>
+                  <button
+                    type="button"
+                    onClick={() => setShowNewCategoryInput((pre) => !pre)}
+                    className="flex items-center justify-between mt-2 text-xs text-orange-500 hover:underline self-start"
+                  >
+                    <PlusIcon/>
+                  </button></div>
+    
+                 
+                  {showNewCategoryInput && (
+                    <div className="flex items-center gap-2 justify-between   ">
+                      <input
+                        type="text"
+                        value={data.category}
+                        name="category"
+                        onChange={(e) => onChangeHandler(e)}
+                        placeholder="New Category"
+                        className=" border border-gray-300 px-4 pr-4 py-3  rounded-lg w-full focus:outline-none focus:ring-0  focus:border-0 transition-all"
+                      />
+                     <X className="cursor-pointer" onClick={() => setShowNewCategoryInput(false)}/>
+            
+                    </div>
+                  )}
                 </div>
 
-                {/* <div className="flex flex-col gap-1.5">
-                  <label className="font-semibold text-gray-700 text-sm">
-                    Item category
-                  </label>
-                  <input
-                    name="name"
-                    value={data.name}
-                    onChange={onChangeHandler}
-                    type="text"
-                    className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all"
-                    placeholder="e.g. Spicy Chicken Burger"
-                    required
-                  />
-                </div> */}
+            
 
                 {/* Price */}
                 <div className="flex flex-col gap-1.5">
                   <label className="font-semibold text-gray-700 text-sm">
                     Price (Birr)
                   </label>
+                  <div></div>
                   <input
                     name="price"
                     value={data.price}

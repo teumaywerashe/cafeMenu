@@ -22,6 +22,20 @@ html {
     background: #ccc;
 }
 
+
+/* Hide horizontal scrollbar */
+
+.no-scrollbar::-webkit-scrollbar {
+    height: 0px;
+    /* For horizontal scrollbar */
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

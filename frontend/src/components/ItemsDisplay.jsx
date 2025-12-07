@@ -1,21 +1,23 @@
 import React, { useContext, useEffect } from "react";
-// import { food_list } from "../assets/assets";
 import { StoreContext } from "../context/store";
-import { FaPlus, FaStar, FaShoppingBag } from "react-icons/fa";
-// import { useSearchParams } from "react-router-dom";
+import { FaShoppingBag, FaPlusCircle } from "react-icons/fa"; // Using FaPlusCircle for the action button
 
-function ItemDisplay() {
-  const { category, userItems, url,id, getUserItems, searchTerm } =
-    useContext(StoreContext);
+function ItemsDisplay() {
 
-  // const [searchParams] = useSearchParams();
-
-  // const id = searchParams.get("id");
+  const {
+    category,
+    setCategory,
+    categories,
+    userItems,
+    url,
+    id,
+    getUserItems,
+    searchTerm,
+  } = useContext(StoreContext);
 
   useEffect(() => {
     getUserItems(id);
-   
-  }, []);
+  }, [id, getUserItems]); // Added dependencies for useEffect
 
   const filteredItems = userItems?.filter((item) => {
     const newCategory = category === "All" || category === item.category;
@@ -25,94 +27,106 @@ function ItemDisplay() {
     return newCategory && matchItem;
   });
 
+  const currentCategory = category;
+
   return (
-    <section id="menu" className="py-16 px-4 md:px-8 bg-gray-50 min-h-screen">
+    <section id="menu" className="py-16 px-4 md:px-10 bg-gray-950 min-h-screen font-sans">
+      
       {/* --- SECTION HEADER --- */}
-      <div className="text-center mb-12 space-y-2">
-        <h3 className="text-orange-500 font-bold uppercase tracking-widest text-sm">
-          Delicious Choices
+      <div className="text-center mb-12 space-y-4 max-w-5xl mx-auto">
+        <h3 className="text-teal-400 font-extrabold uppercase tracking-widest text-sm md:text-base">
+          Our Culinary Collection
         </h3>
-        <h1 className="text-4xl md:text-5xl font-black text-gray-800">
+        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight">
           Explore Our Menu
         </h1>
-        <p className="text-gray-500 max-w-2xl mx-auto">
-          Choose from our diverse menu of delectable dishes, crafted with the
-          finest ingredients to satisfy your cravings.
+        <p className="text-gray-400 max-w-3xl mx-auto text-lg pt-2">
+          Indulge in our exquisite selection of dishes, prepared with premium ingredients
+          and passion to deliver an unforgettable dining experience.
         </p>
+
+        {/* CATEGORY FILTER BUTTONS (Improved Responsiveness and Style) */}
+        <div className="flex justify-start sm:justify-center overflow-x-auto gap-3 py-6 px-1 md:px-0 scrollbar-hide">
+          {categories.map((item, index) => (
+            <button
+              key={index}         
+              onClick={()=>setCategory((pre)=>pre===item?"All":item)}
+              className={`
+                whitespace-nowrap px-5 py-2 rounded-full font-medium text-sm
+                ${currentCategory === item 
+                  ? "bg-teal-500 text-gray-900 shadow-lg shadow-teal-500/50 hover:shadow-teal-600/60" 
+                  : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"} 
+              `}>
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* --- MENU GRID --- */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 container mx-auto">
         {filteredItems.length > 0 ? (
-          filteredItems.map((item, index) => (
+          filteredItems.map((item, index) =>(
             <div
               key={index}
-              className="group h-64 sm:h-full sm:w-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 overflow-hidden flex flex-row-reverse sm:flex-col"
+              className="group bg-gray-800 rounded-xl shadow-2xl shadow-gray-900/50 transition-all duration-300 border border-gray-800 
+                         hover:border-teal-500 hover:shadow-teal-900/50 overflow-hidden flex flex-col transform hover:-translate-y-1" 
             >
               {/* Image Container */}
-              <div className="relative flex items-center h-56 overflow-hidden">
+              <div className="relative w-full h-48 overflow-hidden">
                 <img
                   src={`${url}/uploads/${item.image}`}
                   alt={item.name}
-                  className="w-40 h-full object-cover flex-nonesm: sm:w-[80%] sm:h-[80%] sm:object-cover transform group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-in-out" 
                 />
 
                 {/* Category Badge */}
-                <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-700 shadow-sm uppercase tracking-wide">
+                <span className="absolute top-3 left-3 bg-gray-900/80 backdrop-blur-sm px-3 py-1 rounded-lg text-xs font-medium text-teal-300 uppercase tracking-wider">
                   {item.category}
                 </span>
-
-                {/* Rating (Static for now) */}
-                {/* <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-lg flex items-center gap-1">
-                    <FaStar className="text-yellow-400 text-xs" />
-                    <span className="text-white text-xs font-bold">4.8</span>
-                </div> */}
               </div>
 
               {/* Content */}
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-800 group-hover:text-orange-600 transition-colors line">
+                <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-white group-hover:text-teal-400 transition-colors duration-300 line-clamp-1">
                       {item.name}
                     </h3>
                   </div>
 
-                  <p className="text-gray-500 text-sm line-clamp-2 mb-4 leading-relaxed">
+                  <p className="text-gray-400 text-sm line-clamp-2 mb-4 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
                 {/* Price & Action */}
-                <div className="flex items-center justify-between mt-2 pt-4 border-t border-gray-100">
-                  <div className="flex flex-col">
-                    <span className="text-xs text-gray-400 font-medium">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                  <div className="flex flex-col leading-none">
+                    <span className="text-xs text-gray-500 font-medium uppercase">
                       Price
                     </span>
-                    <span className="text-xl font-black text-gray-900">
+                    <span className="text-2xl font-black text-white mt-1">
                       {item.price * 10}{" "}
-                      <span className="text-xs font-normal text-gray-500">
+                      <span className="text-sm font-normal text-teal-400">
                         Birr
                       </span>
                     </span>
                   </div>
-
-                  {/* <button 
-                    className="w-10 h-10 rounded-full bg-gray-100 text-gray-800 flex items-center justify-center hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-orange-500/40"
-                    onClick={() => alert(`Added ${item.name} to cart!`)}
-                    title="Add to Cart"
-                  >
-                    <FaPlus className="text-sm" />
-                  </button> */}
+                  
+               
                 </div>
               </div>
             </div>
-          ))
-        ) : (
-          <div className="col-span-full flex flex-col items-center justify-center py-20 text-center opacity-70">
-            <FaShoppingBag className="text-6xl text-gray-300 mb-4" />
-            <h3 className="text-xl font-bold text-gray-600">No items found</h3>
-            <p className="text-gray-400">Try selecting a different category.</p>
+          ))) : (
+          <div className="col-span-full flex flex-col items-center justify-center py-24 text-center">
+            <FaShoppingBag className="text-9xl text-gray-700/50 mb-6 animate-pulse" />
+            <h3 className="text-3xl font-extrabold text-white mb-2">
+              No Dishes Available
+            </h3>
+            <p className="text-gray-500 text-lg">
+              We couldn't find any items matching the selected criteria.
+            </p>
           </div>
         )}
       </div>
@@ -120,4 +134,4 @@ function ItemDisplay() {
   );
 }
 
-export default ItemDisplay;
+export default ItemsDisplay

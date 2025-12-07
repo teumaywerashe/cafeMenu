@@ -23,6 +23,22 @@ export const StoreContextProvider = ({ children }) => {
   const [cafe, setCafe] = useState();
 
   let categories = ["All", ...new Set(userItems.map((item) => item.category))];
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/user/get");
+      if (response.data.success) {
+        setUsers(response.data.users);
+        console.log(response.data.users);
+      } else {
+        console.log(response.data.msg);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const deleteItem = async (id) => {
     try {
       const response = await axios.delete(`${url}/items/remove/${id}`, {
@@ -61,9 +77,9 @@ export const StoreContextProvider = ({ children }) => {
     }
   };
 
-  const getUser = async (id = ownerId) => {
+  const getUser = async (paramId) => {
     try {
-      const response = await axios.get(`${url}/user/get/${id}`);
+      const response = await axios.get(`${url}/user/get/${paramId}`);
       if (response.data.success) {
         setUser(response.data.user);
       }
@@ -98,6 +114,8 @@ export const StoreContextProvider = ({ children }) => {
         id,
         item,
         setItem,
+        getUsers,
+        users,
         getItem,
         logOut,
         getUser,

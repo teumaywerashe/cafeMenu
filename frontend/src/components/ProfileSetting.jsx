@@ -9,7 +9,7 @@ import {
   FaSave,
   FaArrowLeft,
 } from "react-icons/fa";
-import { useNavigate,  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
 import { StoreContext } from "../context/store";
@@ -21,8 +21,14 @@ function ProfileSetting() {
   useEffect(() => {
     getUser(id);
     console.log(user);
+    console.log(id);
   }, []);
-
+  useEffect(() => {
+    if (user) {
+      setData((prev) => ({ ...prev, name: user.name }));
+      setEmail(user.email);
+    }
+  }, [user]);
   const [email, setEmail] = useState(user.email);
 
   const [data, setData] = useState({
@@ -30,7 +36,8 @@ function ProfileSetting() {
     password: "",
   });
   const updateData = (e) => {
-    const { name, value } = e.target;
+    const name = e.target.name;
+    const value = e.target.value;
     setData((pre) => ({ ...pre, [name]: value }));
   };
   const [showPassword, setShowPassword] = useState(false);
@@ -57,27 +64,40 @@ function ProfileSetting() {
     e.preventDefault();
     setIsSaving(true);
     try {
-      const formData = new FormData();
-      for (const key in data) {
-        formData.append(key, data[key]);
+      // const formData = new FormData();
+      // for (const key in data) {
+      //   if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
+      //     formData.append(key, data[key]);
+      //   }
+      // }
+      // if (image) {
+      //   formData.append("profileImage", image);
+      // }
+      const response = await axios.patch(
+        `${url}/user/update/${user._id}`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      if (response.data.success) {
+        setTimeout(() => {
+          setIsSaving(false);
+
+          alert("Profile updated successfully!");
+        }, 1500);
+      } else {
+        alert(response.data.msg);
       }
-      if (image) {
-        formData.append("profileImage", image);
-      }
-      const response = await axios.patch(`${url}/user/update/${id}`, formData, {
-        headers: { Authorization: `Beares ${token}` },
-      });
+
       console.log(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setTimeout(() => {
+        setIsSaving(false);
+      }, 1500);
     }
-
-    // setTimeout(() => {
-    //   console.log("Updated Profile:", { name, email, image });
-    //   setIsSaving(false);
-
-    //   alert("Profile updated successfully!");
-    // }, 1500);
   };
 
   return (
@@ -122,7 +142,9 @@ function ProfileSetting() {
           </div>
 
           <div className="mt-4 text-center md:text-left">
-            <h1 className="text-2xl font-bold text-gray-800">{name}</h1>
+            <h1 className="text-2xl font-bold capitalize text-gray-800">
+              {data.name}
+            </h1>
             <p className="text-sm text-gray-500"> Administrator</p>
           </div>
         </div>
@@ -143,11 +165,11 @@ function ProfileSetting() {
                 <FaUser className="text-gray-400 mr-3" />
                 <input
                   type="text"
-                  value={name}
+                  name="name"
+                  value={data.name}
                   onChange={(e) => updateData(e)}
                   className="flex-1 bg-transparent outline-none text-gray-700 font-medium"
                   placeholder="Enter your name"
-                  required
                 />
               </div>
             </div>
@@ -166,7 +188,6 @@ function ProfileSetting() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="flex-1 bg-transparent outline-none text-gray-700 font-medium"
                   placeholder="name@example.com"
-                  required
                 />
               </div>
             </div>
@@ -181,10 +202,10 @@ function ProfileSetting() {
                 <input
                   type={showPassword ? "text" : "password"}
                   value={data.password}
+                  name="password"
                   onChange={(e) => updateData(e)}
                   className="flex-1 bg-transparent outline-none text-gray-700 font-medium"
                   placeholder="••••••"
-                  required
                 />
                 <button
                   type="button"

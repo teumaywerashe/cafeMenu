@@ -4,6 +4,11 @@ import Sidebar from "../components/Sidebar";
 import SupperAdminSidebare from "../components/SupperAdminSidebare";
 import { Route, Routes } from "react-router-dom";
 import SuperAdminDashboard from "../components/SuperAdminDashboard";
+import SuperAdminManagement from "../components/SuperAdminManagement";
+import RegisterNewUser from "../components/RegisterNewUser";
+import Setting from "../components/Setting";
+import EditUser from "../components/EditUser";
+
 
 function SuperAdminHomePage() {
   return (
@@ -12,7 +17,14 @@ function SuperAdminHomePage() {
       <div className="flex gap-3">
         <SupperAdminSidebare />
         <Routes>
-          <Route path="/" element={<SuperAdminDashboard />}></Route>
+          <Route path="/dashboard" element={<SuperAdminDashboard />}></Route>
+          <Route path="/management" element={<SuperAdminManagement />}></Route>
+          <Route path="/editUser" element={<EditUser />}></Route>
+          <Route path="/setting" element={<Setting/>}></Route>
+          <Route path="/register" element={<RegisterNewUser />}></Route>
+          
+
+
         </Routes>
       </div>
     </>
