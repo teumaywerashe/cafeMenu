@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import AdminDashboard from "../components/adminDashboard";
+// import AdminDashboard from "../components/adminDashboard";
 import { Route, Routes } from "react-router-dom";
 import Setting from "../components/Setting";
 import Management from "../components/Management";
@@ -9,6 +9,7 @@ import ProfileSetting from "../components/ProfileSetting";
 import AddItem from "../components/AddItem";
 import UpdateItem from "../components/UpdateItem";
 import EditItem from "../components/EditItem";
+import AdminDashboard from "../components/AdminDashboard";
 
 function AdminHomePage() {
   return (
