@@ -6,7 +6,8 @@ export const StoreContext = createContext();
 
 export const StoreContextProvider = ({ children }) => {
   const navigate = useNavigate();
-  const url = "http://localhost:3000";
+  const url='https://cafemenu-website.onrender.com'
+  // const url = "http://localhost:3000";
 
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
@@ -27,7 +28,7 @@ export const StoreContextProvider = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/user/get");
+      const response = await axios.get(`${url}/user/get`);
       if (response.data.success) {
         setUsers(response.data.users);
         console.log(response.data.users);
