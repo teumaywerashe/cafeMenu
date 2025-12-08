@@ -209,7 +209,7 @@ function Navbar() {
               key={item}
               href={`#${item.toLowerCase()}`}
               onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-gray-700 hover:text-orange-500 border-b border-gray-50 pb-2"
+              className="text-lg font-medium text-white hover:text-orange-500 border-b border-gray-50 pb-2"
             >
               {item}
             </a>
