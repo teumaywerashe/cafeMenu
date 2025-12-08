@@ -3,7 +3,6 @@ import { StoreContext } from "../context/store";
 import { FaShoppingBag, FaPlusCircle } from "react-icons/fa"; // Using FaPlusCircle for the action button
 
 function ItemsDisplay() {
-
   const {
     category,
     setCategory,
@@ -30,8 +29,10 @@ function ItemsDisplay() {
   const currentCategory = category;
 
   return (
-    <section id="menu" className="py-16 px-4 md:px-10 bg-gray-950 min-h-screen font-sans">
-      
+    <section
+      id="menu"
+      className="py-16 px-4 md:px-10 bg-gray-950 min-h-screen font-sans"
+    >
       {/* --- SECTION HEADER --- */}
       <div className="text-center mb-12 space-y-4 max-w-5xl mx-auto">
         <h3 className="text-teal-400 font-extrabold uppercase tracking-widest text-sm md:text-base">
@@ -41,22 +42,27 @@ function ItemsDisplay() {
           Explore Our Menu
         </h1>
         <p className="text-gray-400 max-w-3xl mx-auto text-lg pt-2">
-          Indulge in our exquisite selection of dishes, prepared with premium ingredients
-          and passion to deliver an unforgettable dining experience.
+          Indulge in our exquisite selection of dishes, prepared with premium
+          ingredients and passion to deliver an unforgettable dining experience.
         </p>
 
         {/* CATEGORY FILTER BUTTONS (Improved Responsiveness and Style) */}
         <div className="flex justify-start sm:justify-center overflow-x-auto gap-3 py-6 px-1 md:px-0 scrollbar-hide">
           {categories.map((item, index) => (
             <button
-              key={index}         
-              onClick={()=>setCategory((pre)=>pre===item?"All":item)}
+              key={index}
+              onClick={() =>
+                setCategory((pre) => (pre === item ? "All" : item))
+              }
               className={`
                 whitespace-nowrap px-5 py-2 rounded-full font-medium text-sm
-                ${currentCategory === item 
-                  ? "bg-teal-500 text-gray-900 shadow-lg shadow-teal-500/50 hover:shadow-teal-600/60" 
-                  : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"} 
-              `}>
+                ${
+                  currentCategory === item
+                    ? "bg-teal-500 text-gray-900 shadow-lg shadow-teal-500/50 hover:shadow-teal-600/60"
+                    : "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
+                } 
+              `}
+            >
               {item}
             </button>
           ))}
@@ -66,18 +72,18 @@ function ItemsDisplay() {
       {/* --- MENU GRID --- */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 container mx-auto">
         {filteredItems.length > 0 ? (
-          filteredItems.map((item, index) =>(
+          filteredItems.map((item, index) => (
             <div
               key={index}
-              className="group bg-gray-800 rounded-xl shadow-2xl shadow-gray-900/50 transition-all duration-300 border border-gray-800 
-                         hover:border-teal-500 hover:shadow-teal-900/50 overflow-hidden flex flex-col transform hover:-translate-y-1" 
+              className="group flex-row-reverse bg-gray-800 rounded-xl shadow-2xl shadow-gray-900/50 transition-all duration-300 border border-gray-800 
+                         hover:border-teal-500 hover:shadow-teal-900/50 overflow-hidden flex  transform hover:-translate-y-1"
             >
               {/* Image Container */}
               <div className="relative w-full h-48 overflow-hidden">
                 <img
                   src={`${url}/uploads/${item.image}`}
                   alt={item.name}
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-in-out" 
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-in-out"
                 />
 
                 {/* Category Badge */}
@@ -89,7 +95,7 @@ function ItemsDisplay() {
               {/* Content */}
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
-                <div className="flex justify-between items-start mb-2">
+                  <div className="flex justify-between items-start mb-2">
                     <h3 className="text-xl font-bold text-white group-hover:text-teal-400 transition-colors duration-300 line-clamp-1">
                       {item.name}
                     </h3>
@@ -113,12 +119,11 @@ function ItemsDisplay() {
                       </span>
                     </span>
                   </div>
-                  
-               
                 </div>
               </div>
             </div>
-          ))) : (
+          ))
+        ) : (
           <div className="col-span-full flex flex-col items-center justify-center py-24 text-center">
             <FaShoppingBag className="text-9xl text-gray-700/50 mb-6 animate-pulse" />
             <h3 className="text-3xl font-extrabold text-white mb-2">
@@ -134,4 +139,4 @@ function ItemsDisplay() {
   );
 }
 
-export default ItemsDisplay
+export default ItemsDisplay;
