@@ -96,7 +96,7 @@ function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(" ", "")}`}
-                className="text-sm font-semibold text-white hover:text-orange-500 transition-colors uppercase tracking-wide"
+                className={`text-sm font-semibold ${scrolled ? "text-black":"text-white"} hover:text-orange-500 transition-colors uppercase tracking-wide`}
               >
                 {item}
               </a>
@@ -129,40 +129,7 @@ function Navbar() {
                   }`}
                 />
               </div>
-              {/* <div className="relative" ref={menuListRef}>
-                <button
-                  onClick={() => setShowMenuList(!showMenuList)}
-                  className="hidden md:flex items-center gap-1 text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors"
-                >
-                  Categories{" "}
-                  <FaChevronDown
-                    className={`text-xs transition-transform duration-200 ${
-                      showMenuList ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-
-                {showMenuList && (
-                  <div className="absolute top-10 right-0 w-56 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2 animate-fadeIn origin-top-right">
-               
-                    <button
-                      onClick={() => {
-                        setCategory("All");
-                        setShowMenuList(false);
-                      }}
-                      className={`w-full cursor-pointer text-left px-4 py-2 text-sm hover:bg-orange-50 transition-colors ${
-                        categories === "All"
-                          ? "text-orange-600 font-bold bg-orange-50"
-                          : "text-gray-600"
-                      }`}
-                    >
-                      All Items
-                    </button>
-                    <div className="h-px bg-gray-100 my-1"></div>
-
-                  </div>
-                )}
-              </div> */}
+            
             </>
           )}
 
