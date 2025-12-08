@@ -76,10 +76,10 @@ function ItemsDisplay() {
             <div
               key={index}
               className="group flex-row-reverse bg-gray-800 rounded-xl shadow-2xl shadow-gray-900/50 transition-all duration-300 border border-gray-800 
-                         hover:border-teal-500 hover:shadow-teal-900/50 overflow-hidden flex  transform hover:-translate-y-1"
+                         hover:border-teal-500 hover:shadow-teal-900/50 overflow-hidden flex sm:flex-col transform hover:-translate-y-1"
             >
               {/* Image Container */}
-              <div className="relative w-full h-48 overflow-hidden">
+              <div className="relative w-28 sm:w-full sm:h:48 h-full overflow-hidden">
                 <img
                   src={`${url}/uploads/${item.image}`}
                   alt={item.name}
