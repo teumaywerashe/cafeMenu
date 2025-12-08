@@ -39,8 +39,9 @@ function UpdateItem() {
   // Handle Submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Updated Data:", data);
-    console.log("New Image File:", image);
+    image;
+    // console.log("Updated Data:", data);
+    // console.log("New Image File:", image);
     alert("Item Updated Successfully!");
   };
 

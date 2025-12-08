@@ -8,7 +8,7 @@ function SuperAdminDashboard() {
 
   useEffect(() => {
     getUsers();
-    console.log(users);
+    // console.log(users);
   }, []);
 
   const filteredUsers=users.filter((user)=>{

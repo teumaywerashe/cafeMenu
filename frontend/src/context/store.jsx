@@ -31,7 +31,7 @@ export const StoreContextProvider = ({ children }) => {
       const response = await axios.get(`${url}/user/get`);
       if (response.data.success) {
         setUsers(response.data.users);
-        console.log(response.data.users);
+        // console.log(response.data.users);
       } else {
         console.log(response.data.msg);
       }
@@ -117,7 +117,7 @@ export const StoreContextProvider = ({ children }) => {
     try {
       const response = await axios.get(`${url}/items/getItem/${id}`);
       setItem(response.data.item);
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     }

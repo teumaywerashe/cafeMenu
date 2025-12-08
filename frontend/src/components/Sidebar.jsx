@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import {
   FaCog,
   FaTachometerAlt,
@@ -12,9 +12,9 @@ import { StoreContext } from "../context/store";
 function Sidebar() {
   const { user, logOut, url } = useContext(StoreContext);
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, []);
 
   const getLinkClasses = ({ isActive }) => {
     const baseClasses =

@@ -20,8 +20,8 @@ function ProfileSetting() {
   const { user, url, token, id, getUser } = useContext(StoreContext);
   useEffect(() => {
     getUser(id);
-    console.log(user);
-    console.log(id);
+    // console.log(user);
+    // console.log(id);
   }, []);
   useEffect(() => {
     if (user) {

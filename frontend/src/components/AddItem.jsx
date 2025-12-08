@@ -61,7 +61,7 @@ function AddItem() {
         "Content-Type": "multipart/form-data",
       });
       if (response.data.success) {
-        console.log(response.data.item);
+        // console.log(response.data.item);
         setTimeout(() => {
           alert("Item Added Successfully!");
         }, 1500);
@@ -75,7 +75,7 @@ function AddItem() {
       setTimeout(() => {
         alert(error.response);
       }, 1500);
-      console.log(error);
+      // console.log(error);
     } finally {
       setTimeout(() => {
         // Reset Form

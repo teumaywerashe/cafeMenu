@@ -13,7 +13,7 @@ function Sidebar() {
   const { user, logOut, url } = useContext(StoreContext);
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, []);
 
   const getLinkClasses = ({ isActive }) => {

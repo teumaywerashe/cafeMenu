@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/store";
 import {
@@ -22,9 +22,9 @@ function RegisterNewUser() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    console.log(error);
-  }, []);
+  // useEffect(() => {
+  //   console.log(error);
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

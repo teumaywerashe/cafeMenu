@@ -91,7 +91,7 @@ function EditUser() {
         alert(response.data.msg);
       }
 
-      console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.error(error);
       alert("An error occurred while updating your profile.");
