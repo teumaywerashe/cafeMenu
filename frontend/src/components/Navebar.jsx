@@ -14,8 +14,7 @@ import {
 
 function Navbar() {
   const navigate = useNavigate();
-  const {  setSearchTerm, id, searchTerm } =
-    useContext(StoreContext);
+  const { setSearchTerm, id, searchTerm } = useContext(StoreContext);
 
   // States
   const [isOpen, setIsOpen] = useState(false); // Mobile Menu
@@ -38,7 +37,6 @@ function Navbar() {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setIsOpen(false);
       }
-    
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -98,7 +96,7 @@ function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(" ", "")}`}
-                className="text-sm font-semibold text-gray-600 hover:text-orange-500 transition-colors uppercase tracking-wide"
+                className="text-sm font-semibold text-white hover:text-orange-500 transition-colors uppercase tracking-wide"
               >
                 {item}
               </a>
@@ -209,7 +207,7 @@ function Navbar() {
               key={item}
               href={`#${item.toLowerCase()}`}
               onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-white hover:text-orange-500 border-b border-gray-50 pb-2"
+              className="text-lg font-medium text-gray-700 hover:text-orange-500 border-b border-gray-50 pb-2"
             >
               {item}
             </a>
