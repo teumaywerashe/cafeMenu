@@ -41,6 +41,7 @@ function LoginPage() {
         setRole(response.data.user.role);
         console.log(response.data.user._id);
         setOwnerId(response.data.user._id);
+        console.log(response.data.user.role);
         response.data.user.role === "admin"
           ? navigate(`/admin/dashboard`)
           : navigate(`/superadmin/dashboard`);

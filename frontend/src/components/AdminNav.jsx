@@ -67,17 +67,17 @@ function AdminNav() {
   const navLinks = [
     {
       name: "Dashboard",
-      path: role === "user" ? "/admin/dashboard" : "/superadmin/dashboard",
+      path: role === "admin" ? "/admin/dashboard" : "/superadmin/dashboard",
       icon: <FaTachometerAlt />,
     },
     {
       name: "Management",
-      path: role === "user" ? "/admin/management" : "/superadmin/management",
+      path: role === "admin" ? "/admin/management" : "/superadmin/management",
       icon: <FaUserCog />,
     },
     {
       name: "Settings",
-      path: role === "user" ? "/admin/setting" : "/superadmin/setting",
+      path: role === "admin" ? "/admin/setting" : "/superadmin/setting",
       icon: <FaCog />,
     },
   ];
