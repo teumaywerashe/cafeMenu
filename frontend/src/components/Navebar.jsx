@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-// Replace this with your actual image path or keep it
 import logo from "../assets/images";
-// import { menu_list } from "../assets/assets";
 import { StoreContext } from "../context/store";
 import { useNavigate } from "react-router-dom";
 import {
   FaBars,
-  FaChevronDown,
+
   FaSearch,
   FaTimes,
   FaUtensils,
@@ -17,8 +15,7 @@ function Navbar() {
   const { setSearchTerm, id, searchTerm } = useContext(StoreContext);
 
   // States
-  const [isOpen, setIsOpen] = useState(false); // Mobile Menu
-  // const [showMenuList, setShowMenuList] = useState(false); // "More" Dropdown
+  const [isOpen, setIsOpen] = useState(false); 
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -55,7 +52,7 @@ function Navbar() {
         {/* --- LEFT: LOGO --- */}
         <div
           className="flex items-center gap-2 cursor-pointer"
-          onClick={() => navigate(`/user?id=${id}`)}
+          onClick={() => navigate(`/`)}
         >
           {/* Fallback icon if image fails or isn't present */}
           <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center text-white shrink-0">
@@ -72,7 +69,7 @@ function Navbar() {
           {id && (
             <span
               className={`font-bold text-xl md:text-2xl tracking-tight ${
-                scrolled ? "text-gray-800" : "text-gray-800 md:text-gray-800"
+                scrolled ?"text-gray-800 md:text-gray-800": "text-gray-800" 
               }`}
             >
               The Daily Feast
@@ -180,34 +177,7 @@ function Navbar() {
             </a>
           ))}
 
-          {/* Mobile Categories Accordion */}
-          {/* <div className="pt-2">
-            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
-              Categories
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              {categories?.map((item, i) => (
-                <a key={i} href="#menu">
-                  {" "}
-                  <button
-                    key={i}
-                    onClick={() => {
-                      setCategory((pre) => (pre === item ? "All" : item));
-                      setIsOpen(false);
-                      // Scroll to menu section logic here if needed
-                    }}
-                    className={`text-sm cursor-pointer text-left px-3 py-2 rounded-lg ${
-                      category === item
-                        ? "bg-orange-100 text-orange-700"
-                        : "bg-gray-50 text-gray-600"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                </a>
-              ))}
-            </div>
-          </div> */}
+       
 
           <button
             onClick={() => {
