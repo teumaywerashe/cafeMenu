@@ -112,7 +112,7 @@ function LoginPage() {
       <div className="w-full md:w-1/2 lg:w-7/12 flex items-center justify-center p-6 relative">
         {/* Close / Back Button */}
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate('/')}
           className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-800 hover:bg-gray-100 rounded-full transition-all"
           title="Go Back"
         >
