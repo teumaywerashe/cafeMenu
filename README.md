@@ -8,8 +8,8 @@ A full-stack **Cafe Menu Management System**
 
 ## 🚀 Live Demo
 
-- **Frontend:**[https://cafemenu123.onrender.com/](clike_here)
-- **Backend API:** [https://cafemenu-serverside.onrender.com](click_here)
+- **Live Site:**[Cafe Menu App](https://cafemenu123.onrender.com/)
+- **Backend API:** [View API](https://cafemenu-serverside.onrender.com)
 
 ---
 
@@ -200,6 +200,6 @@ Email notifications
 
 ## 👤 Author
  
- Software Engineering Student — AAU
+teumay werashe
 
 ⭐ If you like this project, feel free to give it a star!
