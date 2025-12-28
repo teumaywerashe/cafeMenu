@@ -8,8 +8,8 @@ A full-stack **Cafe Menu Management System**
 
 ## 🚀 Live Demo
 
-- **Frontend:**[https://cafemenu123.onrender.com/](clike_here)
-- **Backend API:** [https://cafemenu-serverside.onrender.com](click_here)
+- **Frontend:**[click_here](https://cafemenu123.onrender.com/)
+- **Backend API:**[click_here](https://cafemenu-serverside.onrender.com)
 
 ---
 
@@ -96,11 +96,12 @@ JWT_SECRET='<your_secret_key_of_json_web_token>'
 EXPIRE_TIME=<'token _expire_time'>
 
 
-🧪 Prisma Setup
+##🧪 Prisma Setup
 
 Run the following commands inside the backend directory:
 
 npx prisma generate
+
 npx prisma migrate deploy
 
 
@@ -109,7 +110,7 @@ For local development:
 npx prisma migrate dev
 
 
-▶️ Run Locally
+##▶️ Run Locally
 
 Backend
 cd backend
@@ -121,26 +122,28 @@ cd frontend
 npm install
 npm run dev
 
-📡 API Overview
+##📡 API Overview
+
 Method	Endpoint	Description
-GET	/items/get	   Get all products
-GET	/items/get/:id	Get single product
-GET	/items/getItem/:id	Get user item product
-POST	/items/add	Create product (Admin)
-PUT	/items/update/:id	Update product (Admin)
-DELETE	/items/delete/:id	Delete product (Admin)
 
-GET   /user/get 	get all cafes
-GET   /user/get/:id 	get single cafes
-POST	/user/login	Admin login
-POST	/user/register	Admin register
-POST	/user/update/:id	Admin update profile
-POST	/user/delete/:id	remove Admin
+-GET	/items/get	   Get all products
+-GET	/items/get/:id	Get single product
+-GET	/items/getItem/:id	Get user item product
+-POST	/items/add	Create product (Admin)
+-PUT	/items/update/:id	Update product (Admin)
+-DELETE	/items/delete/:id	Delete product (Admin)
+
+-GET   /user/get 	get all cafes
+-GET   /user/get/:id 	get single cafes
+-POST	/user/login	Admin login
+-POST	/user/register	Admin register
+-POST	/user/update/:id	Admin update profile
+-POST	/user/delete/:id	remove Admin
 
 
 
 
-🧠 What This Project Demonstrates
+##🧠 What This Project Demonstrates
 
 Full-stack application architecture
 
@@ -153,7 +156,7 @@ Secure environment variable handling
 
 Production deployment with Render
 
-📌 Future Improvements
+##📌 Future Improvements
 
 Order tracking system
 
@@ -165,9 +168,8 @@ Image upload for products
 
 Email notifications
 
-👤 Author
+##👤 Author
 
-Teumay Werashe
-Software Engineering Student — AAU
+#Teumay Werashe
 
 ⭐ If you like this project, feel free to give it a star!
