@@ -145,11 +145,11 @@ npm run dev
 
 Method	Endpoint	Description
 
-GET	/items/get	   Get all products
+GET	/items/get	   Get all products(admin)
 
-GET	/items/get/:id	Get single product
+GET	/items/get/:id	Get single product(admin)
 
-GET	/items/getItem/:id	Get user item product
+GET	/items/getItem/:id	Get userItem product(admin)
 
 POST	/items/add	Create product (Admin)
 
@@ -157,17 +157,17 @@ PUT	/items/update/:id	Update product (Admin)
 
 DELETE	/items/delete/:id	Delete product (Admin)
 
-GET   /user/get 	get all cafes
+GET   /user/get 	get all cafes(user)
 
-GET   /user/get/:id 	get single cafes
+GET   /user/get/:id 	get single cafes(user)
 
-POST	/user/login	Admin login
+POST	/user/login	 login(admin and superadmin)
 
-POST	/user/register	Admin register
+POST	/user/register	Admin register(suoeradmin)
 
-POST	/user/update/:id	Admin update profile
+POST	/user/update/:id	 update profile(admin and superadmin)
 
-POST	/user/delete/:id	remove Admin
+POST	/user/delete/:id	remove Admin(superadmin)
 
 
 
