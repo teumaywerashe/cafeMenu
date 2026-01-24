@@ -118,7 +118,7 @@ function AddItem() {
                 Upload Image
               </label>
 
-              <div className="relative group w-full aspect-[4/3] bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden hover:border-orange-400 hover:bg-orange-50 transition-all cursor-pointer">
+              <div className="relative group w-full aspect-4/3 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden hover:border-orange-400 hover:bg-orange-50 transition-all cursor-pointer">
                 {previewUrl ? (
                   <img
                     src={previewUrl}

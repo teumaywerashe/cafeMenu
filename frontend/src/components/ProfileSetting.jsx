@@ -22,7 +22,7 @@ function ProfileSetting() {
     getUser(id);
     // console.log(user);
     // console.log(id);
-  }, []);
+  });
   useEffect(() => {
     if (user) {
       setData((prev) => ({ ...prev, name: user.name }));
@@ -110,7 +110,7 @@ function ProfileSetting() {
 
       <div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
         {/* --- Header Decoration --- */}
-        <div className="h-32 bg-gradient-to-r from-orange-400 to-red-500 relative"></div>
+        <div className="h-32 bg-linear-to-r from-orange-400 to-red-500 relative"></div>
 
         {/* --- Profile Image Section --- */}
         <div className="relative px-8">

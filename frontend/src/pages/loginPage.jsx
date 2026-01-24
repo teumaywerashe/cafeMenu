@@ -78,7 +78,7 @@ function LoginPage() {
         }}
       >
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80 z-10"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 to-black/80 z-10"></div>
 
         {/* Content */}
         <div className="relative z-20 flex flex-col justify-between h-full p-12 text-white">

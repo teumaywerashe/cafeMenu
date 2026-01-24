@@ -14,7 +14,7 @@ function Hero() {
   const { user, getUser,id } = useContext(StoreContext);
   useEffect(() => {
     getUser(id);
-  }, []);
+  },[]);
   return (
     <div
       id="home"
@@ -29,7 +29,7 @@ function Hero() {
           className="w-full h-full object-cover opacity-90 scale-105 animate-slow-zoom"
         />
         {/* Dark Gradient Overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/30"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-black/30"></div>
       </div>
 
       {/* --- CONTENT LAYER --- */}

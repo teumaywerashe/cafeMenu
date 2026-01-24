@@ -29,7 +29,7 @@ function AdminNav() {
 
   useEffect(() => {
     getUser(ownerId);
-  }, [user]);
+  }, [user,ownerId,getUser]);
   // Handle Click Outside
   useEffect(() => {
     const handleClickOutside = (event) => {
