@@ -68,7 +68,7 @@ function Navbar() {
           </div>
           {id && (
             <span
-              className={`font-bold text-xl md:text-2xl tracking-tight ${
+              className={`font-bold text-xl md:text-2xl tracking-tight ${showSearchInput?"hidden sm:flex transition-all duration-300":"flex"} ${
                 scrolled ?"text-gray-800 md:text-gray-800": "text-gray-800" 
               }`}
             >
