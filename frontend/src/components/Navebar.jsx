@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import logo from "../assets/images";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import { useNavigate } from "react-router-dom";
-import {
-  FaBars,
-
-  FaSearch,
-  FaTimes,
-  FaUtensils,
-} from "react-icons/fa";
+import { FaBars, FaSearch, FaTimes, FaUtensils } from "react-icons/fa";
 
 function Navbar() {
   const navigate = useNavigate();
   const { setSearchTerm, id, searchTerm } = useContext(StoreContext);
 
   // States
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -68,8 +62,8 @@ function Navbar() {
           </div>
           {id && (
             <span
-              className={`font-bold text-xl md:text-2xl tracking-tight ${showSearchInput?"hidden sm:flex transition-all duration-300":"flex"} ${
-                scrolled ?"text-gray-800 md:text-gray-800": "text-gray-800" 
+              className={`font-bold text-xl md:text-2xl tracking-tight ${showSearchInput ? "hidden sm:flex transition-all duration-300" : "flex"} ${
+                scrolled ? "text-gray-800 md:text-gray-800" : "text-gray-800"
               }`}
             >
               The Daily Feast
@@ -93,7 +87,7 @@ function Navbar() {
               <a
                 key={item}
                 href={`#${item.toLowerCase().replace(" ", "")}`}
-                className={`text-sm font-semibold ${scrolled ? "text-black":"text-white"} hover:text-orange-500 transition-colors uppercase tracking-wide`}
+                className={`text-sm font-semibold ${scrolled ? "text-black" : "text-white"} hover:text-orange-500 transition-colors uppercase tracking-wide`}
               >
                 {item}
               </a>
@@ -126,7 +120,6 @@ function Navbar() {
                   }`}
                 />
               </div>
-            
             </>
           )}
 
@@ -176,8 +169,6 @@ function Navbar() {
               {item}
             </a>
           ))}
-
-       
 
           <button
             onClick={() => {

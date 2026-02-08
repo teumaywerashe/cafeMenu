@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   FaUserCircle,
   FaShieldAlt,
@@ -8,24 +8,17 @@ import {
   FaPalette,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 
 function Setting() {
+  const { role, logOut } = useContext(StoreContext);
 
-  const navigate=useNavigate()
-const {role,logOut}=useContext(StoreContext)
-
-// const handleLogout=()=>{
-//   alert('loged out')
-//   logOut();
-//  
-// }
   const settingOptions = [
     {
       title: "Profile Settings",
       description: "Update your profile photo, name, and contact details.",
       icon: <FaUserCircle size={24} />,
-      path:`/${role}/profileSetting`,
+      path: `/${role}/profileSetting`,
       color: "text-blue-600 bg-blue-50",
     },
     {
@@ -104,8 +97,11 @@ const {role,logOut}=useContext(StoreContext)
 
         {/* --- Logout Section (Optional but recommended) --- */}
         <div className="mt-8 border-t border-gray-200 pt-6">
-          <button  onClick={logOut} className="flex items-center gap-3 text-red-500 font-medium hover:bg-red-50 px-4 py-3 rounded-lg w-full transition-colors" >
-            <FaSignOutAlt  />
+          <button
+            onClick={logOut}
+            className="flex items-center gap-3 text-red-500 font-medium hover:bg-red-50 px-4 py-3 rounded-lg w-full transition-colors"
+          >
+            <FaSignOutAlt />
             <span>Log Out</span>
           </button>
         </div>

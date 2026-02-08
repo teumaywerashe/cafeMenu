@@ -1,20 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-// import { assets } from "../assets/assets"; // Keeping your asset import
-import {
-  FaClosedCaptioning,
-  FaCloudUploadAlt,
-  FaEraser,
-  FaHandMiddleFinger,
-  FaPlus,
-  FaRemoveFormat,
-  FaXbox,
-  FaXing,
-  FaXRay,
-} from "react-icons/fa";
-import { StoreContext } from "../context/store";
+import { FaCloudUploadAlt, FaEraser, FaPlus } from "react-icons/fa";
+import { StoreContext } from "../context/storeContext";
 import { useNavigate } from "react-router-dom";
 import { PlusIcon, X } from "lucide-react";
+import toast from "react-hot-toast";
 
 function AddItem() {
   const navigate = useNavigate();
@@ -72,17 +62,17 @@ function AddItem() {
       if (response.data.success) {
         // console.log(response.data.item);
         setTimeout(() => {
-          alert("Item Added Successfully!");
+          toast.success("Item Added Successfully!");
         }, 1500);
         navigate("/admin/dashboard");
       } else {
         setTimeout(() => {
-          alert(response.data.msg);
+          toast.error(response.data.msg);
         }, 500);
       }
     } catch (error) {
       setTimeout(() => {
-        alert(error.response);
+        toast.error(error.response);
       }, 1500);
       // console.log(error);
     } finally {

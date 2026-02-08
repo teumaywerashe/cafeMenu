@@ -25,3 +25,20 @@ export const authMiddleware = (req, res, next) => {
         return res.status(403).json({ success: false, msg: "Invalid or expired token!" });
     }
 };
+export const isAdmin = (req, res, next) => {
+
+    if (req.role === 'user')
+        next()
+    else {
+        res.status(400).json({ success: false, msg: 'UnAuthorized Access' })
+    }
+}
+
+export const isSupperAdminAdmin = (req, res, next) => {
+
+    if (req.role === 'admin')
+        next()
+    else {
+        res.status(400).json({ success: false, msg: 'UnAuthorized Access' })
+    }
+}

@@ -1,7 +1,7 @@
 import express from 'express'
 import { addItem, deleteItem, getAllItems, getItem, getUserItems, updateItem } from '../controller/ietmController.js'
 import multer from 'multer'
-import { authMiddleware } from '../middleWare/auth.js'
+import { authMiddleware, isAdmin } from '../middleWare/auth.js'
 export const itemRouter = express.Router()
 
 const storage = multer.diskStorage({
@@ -16,10 +16,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-itemRouter.get('/get', authMiddleware, getAllItems)
+itemRouter.get('/get', authMiddleware, isAdmin, getAllItems)
 itemRouter.get('/get/:id', getUserItems)
 itemRouter.get('/getItem/:id', getItem)
-itemRouter.post('/add', authMiddleware, upload.single('image'), addItem)
-itemRouter.patch('/update/:id', authMiddleware, upload.single('image'), updateItem)
+itemRouter.post('/add', authMiddleware, isAdmin, upload.single('image'), addItem)
+itemRouter.patch('/update/:id', authMiddleware, isAdmin, upload.single('image'), updateItem)
 
 itemRouter.delete('/remove/:id', authMiddleware, deleteItem)

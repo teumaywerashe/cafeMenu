@@ -2,10 +2,11 @@ import axios from "axios";
 import React from "react";
 import { useContext } from "react";
 import { useState } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { FaBackward, FaEdit } from "react-icons/fa";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 function EditItem() {
   const [searchParams] = useSearchParams();
@@ -18,7 +19,6 @@ function EditItem() {
     getItem(id);
     // console.log(item);
   }, []);
-
 
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -71,22 +71,22 @@ function EditItem() {
         {
           headers: { Authorization: `Bearer ${token}` },
           "Content-Type": "multipart/form-data",
-        }
+        },
       );
       if (response.data.success) {
         // console.log(response.data.item);
         setTimeout(() => {
-          alert("Item Edited Successfully!");
+          toast.success("Item Edited Successfully!");
         }, 1500);
         navigate("/admin/dashboard");
       } else {
         setTimeout(() => {
-          alert(response.data.msg);
+          toast.error(response.data.msg);
         }, 500);
       }
     } catch (error) {
       setTimeout(() => {
-        alert(error.response);
+        toast.error(error.response);
       }, 1500);
       console.log(error);
     }
@@ -145,7 +145,6 @@ function EditItem() {
                   type="text"
                   className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all"
                   placeholder="e.g. Spicy Chicken Burger"
-               
                 />
               </div>
 
@@ -196,7 +195,6 @@ function EditItem() {
                   onChange={onChangeHandler}
                   className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition-all resize-none h-32"
                   placeholder="Write a short description about the food..."
-        
                 ></textarea>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import React, { useContext, useState } from "react";
 import {
   FaLock,
@@ -9,67 +9,21 @@ import {
   FaCoffee,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 
 function LoginPage() {
-  const { url, setToken, setOwnerId, setRole } = useContext(StoreContext);
+  const {handleSubmit,isLoading,email,setEmail,password,setPassword,error,setError } = useContext(StoreContext);
   const now = new Date();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+ 
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+ 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
 
-    try {
-      const response = await axios.post(`${url}/user/login`, {
-        email,
-        password,
-      });
-
-      if (!response.data.success) {
-        setError(response.data.msg);
-      } else {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("ownerId", response.data.user._id.toString());
-        localStorage.setItem("role", response.data.user.role);
-        setToken(response.data.token);
-        setRole(response.data.user.role);
-        // console.log(response.data.user._id);
-        setOwnerId(response.data.user._id);
-        // console.log(response.data.user.role);
-        response.data.user.role === "admin"
-          ? navigate(`/admin/dashboard`)
-          : navigate(`/superadmin/dashboard`);
-      }
-    } catch (error) {
-      if (error.response) {
-        console.log("Axios error response:", error.response.data);
-        setIsLoading(false);
-        setError(error.response.data.msg || "Server error");
-      } else if (error.request) {
-        console.log("No response from server", error.request);
-        setIsLoading(false);
-        setError("No response from server");
-      } else {
-        console.log("Error setting up request:", error.message);
-        setIsLoading(false);
-        setError(error.message);
-      }
-    } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1500);
-    }
-  };
 
   return (
     <div className="min-h-screen flex w-full bg-white font-sans">
-      {/* --- LEFT SIDE: Visual (Hidden on Mobile) --- */}
+    
       <div
         className="hidden md:flex md:w-1/2 lg:w-5/12 bg-cover bg-center relative overflow-hidden"
         style={{
@@ -112,7 +66,7 @@ function LoginPage() {
       <div className="w-full md:w-1/2 lg:w-7/12 flex items-center justify-center p-6 relative">
         {/* Close / Back Button */}
         <button
-          onClick={() => navigate('/')}
+          onClick={() => navigate("/")}
           className="absolute top-6 right-6 p-2 text-gray-400 hover:text-gray-800 hover:bg-gray-100 rounded-full transition-all"
           title="Go Back"
         >

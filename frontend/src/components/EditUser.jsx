@@ -1,31 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function EditUser() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const [user,setUser]=useState({name:'',email:'',role:''})
+  const [user, setUser] = useState({ name: "", email: "", role: "" });
 
-  const {
-   url,token
-  } = useContext(StoreContext);
+  const { url, token } = useContext(StoreContext);
 
-
-
-
-   const getUser = async (paramId) => {
-      try {
-        const response = await axios.get(`${url}/user/get/${paramId}`);
-        if (response.data.success) {
-          setUser(response.data.user);
-        }
-      } catch (error) {
-        console.log(error);
+  const getUser = async (paramId) => {
+    try {
+      const response = await axios.get(`${url}/user/get/${paramId}`);
+      if (response.data.success) {
+        setUser(response.data.user);
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -33,7 +29,7 @@ function EditUser() {
   });
 
   const [isLoading, setIsLoading] = useState(true);
-  
+
   useEffect(() => {
     const fetchUser = async () => {
       if (id) {
@@ -63,7 +59,7 @@ function EditUser() {
     }));
   };
 
-   const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -74,32 +70,26 @@ function EditUser() {
           formData.append(key, data[key]);
         }
       });
-  
 
-      const response = await axios.patch(
-        `${url}/user/update/${id}`,
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.patch(`${url}/user/update/${id}`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       if (response.data.success) {
-        alert("Profile updated successfully!");
-        navigate(-1)
+        toast.success("Profile updated successfully!");
+        navigate(-1);
       } else {
-        alert(response.data.msg);
+        toast.error(response.data.msg);
       }
 
       // console.log(response.data);
     } catch (error) {
       console.error(error);
-      alert("An error occurred while updating your profile.");
+      toast.error("An error occurred while updating your profile.");
     } finally {
       setIsLoading(false);
     }
   };
-
 
   if (isLoading) {
     return (

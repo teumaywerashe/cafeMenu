@@ -1,27 +1,24 @@
-
 import "./App.css";
-import { StoreContextProvider } from "./context/store";
+// import { StoreContextProvider } from "./context/storeProvider";
 import { Route, Routes } from "react-router-dom";
 import SuperAdminHomePage from "./pages/SuperAdminHomePage";
 import AdminHomePage from "./pages/AdminHomePage";
 import UserHomePage from "./pages/UserHomePage";
 import LoginPage from "./pages/loginPage";
 import UserList from "./pages/UserList";
+import { StoreProvider } from "./context/storeProvider";
 
 function App() {
   return (
-    <StoreContextProvider>
+    <StoreProvider>
       <Routes>
-      <Route path="/" element={<UserList/>}></Route>
+        <Route path="/" element={<UserList />}></Route>
         <Route path="/user" element={<UserHomePage />}></Route>
-        <Route path="/login" element={<LoginPage/>}></Route>
-        <Route path="/admin/*" element={<AdminHomePage/>}></Route>
-        <Route path="/superadmin/*" element={<SuperAdminHomePage/>}></Route>
-       
-
-
+        <Route path="/login" element={<LoginPage />}></Route>
+        <Route path="/admin/*" element={<AdminHomePage />}></Route>
+        <Route path="/superadmin/*" element={<SuperAdminHomePage />}></Route>
       </Routes>
-    </StoreContextProvider>
+    </StoreProvider>
   );
 }
 

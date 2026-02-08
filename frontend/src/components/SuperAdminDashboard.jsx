@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import { assets } from "../assets/assets";
 
 function SuperAdminDashboard() {
@@ -11,9 +11,9 @@ function SuperAdminDashboard() {
     // console.log(users);
   }, []);
 
-  const filteredUsers=users.filter((user)=>{
-    return user.name.toLowerCase().includes(searchTerm.toLowerCase())
-  })
+  const filteredUsers = users.filter((user) => {
+    return user.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <div className="w-full min-h-screen bg-gray-50 p-4 md:p-8 font-sans">
@@ -141,7 +141,9 @@ function SuperAdminDashboard() {
               </svg>
             </div>
             <p className="text-gray-500 text-lg">No user found found</p>
-            <p className="text-gray-400 text-sm">Try adjusting your search or check your interner connection</p>
+            <p className="text-gray-400 text-sm">
+              Try adjusting your search or check your interner connection
+            </p>
           </div>
         )}
       </div>

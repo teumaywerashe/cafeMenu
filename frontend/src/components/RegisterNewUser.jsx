@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import {
   FaArrowLeft,
   FaCoffee,

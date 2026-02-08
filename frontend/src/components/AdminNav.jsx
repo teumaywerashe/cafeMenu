@@ -13,13 +13,14 @@ import {
 
 import logo from "../assets/images";
 import { assets } from "../assets/assets";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 
 function AdminNav() {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const { logOut, getUser, role, user, ownerId, url } = useContext(StoreContext);
+  const { logOut, getUser, role, user, ownerId, url } =
+    useContext(StoreContext);
 
   // Refs for click-outside logic
   const mobileMenuRef = useRef(null);
@@ -29,7 +30,7 @@ function AdminNav() {
 
   useEffect(() => {
     getUser(ownerId);
-  }, [user,ownerId,getUser]);
+  }, [user, ownerId, getUser]);
   // Handle Click Outside
   useEffect(() => {
     const handleClickOutside = (event) => {

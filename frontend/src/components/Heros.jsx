@@ -2,7 +2,7 @@ import React from "react";
 import { assets } from "../assets/assets";
 import { FaArrowRight, FaUtensils } from "react-icons/fa";
 import { useContext } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import { useEffect } from "react";
 // import { useSearchParams } from "react-router-dom";
 
@@ -11,10 +11,10 @@ function Hero() {
 
   // const id = searchParams.get("id");
 
-  const { user, getUser,id } = useContext(StoreContext);
+  const { user, getUser, id } = useContext(StoreContext);
   useEffect(() => {
     getUser(id);
-  },[]);
+  }, []);
   return (
     <div
       id="home"

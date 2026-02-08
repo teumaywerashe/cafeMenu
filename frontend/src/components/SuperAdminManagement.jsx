@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaPlus, FaSearch, FaTrashAlt } from "react-icons/fa";
 import { assets } from "../assets/assets";
@@ -20,7 +20,7 @@ function SuperAdminManagement() {
 
   const filteredUsers = Array.isArray(users)
     ? users.filter((user) =>
-        user.name.toLowerCase().includes(searchTerm.toLowerCase())
+        user.name.toLowerCase().includes(searchTerm.toLowerCase()),
       )
     : [];
   return (
@@ -104,7 +104,7 @@ function SuperAdminManagement() {
                     <FaEdit /> Edit
                   </button>
                   <button
-                    onClick={()=>manageDelete(user._id)}
+                    onClick={() => manageDelete(user._id)}
                     className="flex items-center justify-center gap-2 py-2 rounded-lg bg-gray-50 text-gray-600 font-medium hover:bg-red-50 hover:text-red-600 transition-colors"
                   >
                     <FaTrashAlt /> Delete

@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 
 function AdminDashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
-  
 
-  const { getUserItems,url,userItems, ownerId ,categories} = useContext(StoreContext);
+  const { getUserItems, url, userItems, ownerId, categories } =
+    useContext(StoreContext);
 
   useEffect(() => {
-    getUserItems(ownerId);   
+    getUserItems(ownerId);
   }, []);
 
-  
   const filteredList = userItems.filter((item) => {
     const matchesSearch = item.name
       .toLowerCase()
@@ -155,8 +154,6 @@ function AdminDashboard() {
                   {item.price * 10} Birr
                 </p>
               </div>
-
-         
             </div>
           ))
         ) : (

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Use Link for SPA navigation
 import { User, ChevronRight } from "lucide-react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import Navebar from "../components/Navebar";
 import { FaSearch } from "react-icons/fa";
 

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 
 function ItemsDisplay() {
   const {
@@ -29,7 +29,6 @@ function ItemsDisplay() {
 
   return (
     <section id="menu" className="py-16 bg-white min-h-screen font-sans">
-  
       <div className="text-center mb-8 space-y-4 max-w-5xl mx-auto px-4 md:px-10">
         <h3 className="text-teal-600 font-extrabold uppercase tracking-widest text-sm md:text-base">
           Our Culinary Collection
@@ -43,7 +42,6 @@ function ItemsDisplay() {
         </p>
       </div>
 
-   
       <div className="sticky top-14 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 mb-8">
         <div className="max-w-7xl mx-auto px-4 md:px-10">
           <div className="flex justify-start sm:justify-center overflow-x-auto gap-3 py-4 scrollbar-hide">
@@ -56,7 +54,7 @@ function ItemsDisplay() {
                 className={`whitespace-nowrap px-6 py-2 rounded-full font-medium text-sm transition-all
                   ${
                     currentCategory === item
-                      ? "bg-teal-500 text-white shadow-md scale-105"
+                      ? "bg-[#24b622] text-white shadow-md scale-105"
                       : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
               >
@@ -76,7 +74,6 @@ function ItemsDisplay() {
                   key={index}
                   className="group bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden flex h-44 sm:h-48 transition-all hover:shadow-md"
                 >
-             
                   <div className="flex-[1.5] py-2 px-4 flex flex-col relative min-w-0">
                     <div className="flex-1 mb-2">
                       <h3 className="text-lg font-bold text-gray-800 mb-1 capitalize truncate">
@@ -87,7 +84,6 @@ function ItemsDisplay() {
                       </p>
                     </div>
 
-                 
                     <div
                       className="absolute bottom-2 left-0 bg-[#24b622] text-white py-2 px-6 pr-7 font-bold text-sm sm:text-base"
                       style={{
@@ -99,7 +95,6 @@ function ItemsDisplay() {
                     </div>
                   </div>
 
-               
                   <div className="flex-1 max-w-[40%] h-full overflow-hidden bg-gray-100">
                     <img
                       src={`${url}/uploads/${item.image}`}

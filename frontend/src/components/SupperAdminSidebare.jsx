@@ -7,7 +7,7 @@ import {
   FaCoffee,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 
 function Sidebar() {
   const { user, logOut, url } = useContext(StoreContext);

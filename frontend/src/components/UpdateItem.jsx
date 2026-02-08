@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaCloudUploadAlt, FaTimes } from "react-icons/fa";
 // Assuming food_list is imported correctly
 import { food_list } from "../assets/assets";
+import toast from "react-hot-toast";
 
 function UpdateItem() {
   // 1. Simulate fetching the item (In real app, you might get ID from URL params)
@@ -42,7 +43,7 @@ function UpdateItem() {
     image;
     // console.log("Updated Data:", data);
     // console.log("New Image File:", image);
-    alert("Item Updated Successfully!");
+    toast.success("Item Updated Successfully!");
   };
 
   // Cleanup memory for object URL

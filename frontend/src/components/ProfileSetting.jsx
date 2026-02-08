@@ -12,8 +12,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
-import { StoreContext } from "../context/store";
+import { StoreContext } from "../context/storeContext";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 function ProfileSetting() {
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ function ProfileSetting() {
   // Image State
   const [image, setImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(
-    `https://ui-avatars.com/api/?name=${user.name}&background=0D8ABC&color=fff`
+    `https://ui-avatars.com/api/?name=${user.name}&background=0D8ABC&color=fff`,
   );
 
   // Loading State
@@ -67,7 +68,12 @@ function ProfileSetting() {
     try {
       const formData = new FormData();
       Object.keys(data).forEach((key) => {
-        if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
+        if (
+          data[key] !== undefined &&
+          data[key] !== null &&
+          data[key] !== "" &&
+          data[key].length > 3
+        ) {
           formData.append(key, data[key]);
         }
       });
@@ -78,19 +84,19 @@ function ProfileSetting() {
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
 
       if (response.data.success) {
-        alert("Profile updated successfully!");
+        toast.success("Profile updated successfully!");
       } else {
-        alert(response.data.msg);
+        toast.error(response.data.msg);
       }
 
       console.log(response.data);
     } catch (error) {
       console.error(error);
-      alert("An error occurred while updating your profile.");
+      toast.error("An error occurred while updating your profile.");
     } finally {
       setIsSaving(false);
     }
@@ -166,7 +172,8 @@ function ProfileSetting() {
                 <input
                   type="text"
                   name="name"
-                  value={data.name} required
+                  value={data.name}
+                  required
                   onChange={(e) => updateData(e)}
                   className="flex-1 bg-transparent outline-none text-gray-700 font-medium"
                   placeholder="Enter your name"
