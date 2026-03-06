@@ -1,4 +1,4 @@
-# ☕ Cafe Menu Management System
+# Cafe Menu Management System
 
 A full-stack **Cafe Menu Management System**
    where customers can browse products without authentication(wothout logging in or creating account),
@@ -6,14 +6,14 @@ A full-stack **Cafe Menu Management System**
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
-- **Live Site:**[Cafe Menu App](https://cafemenu123.onrender.com/)
-- **Backend API:** [View API](https://cafemenu-serverside.onrender.com)
+- [**Live Site:**](https://cafemenu123.onrender.com/)
+<!-- - [**Backend API:** ](https://cafemenu-serverside.onrender.com) -->
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend
 - React
@@ -29,9 +29,9 @@ A full-stack **Cafe Menu Management System**
 
 ---
 
-## ✨ Main Features
+## Main Features
 
-### 👥 Customers (No Login Required)
+###  Customers (No Login Required)
 -Select his interseted cafe from the list of cafe registered in the system
 - View cafe's products
 - Browse by category
@@ -39,27 +39,27 @@ A full-stack **Cafe Menu Management System**
 - See prices and descriptions
 
 
-### 🛠 Admin (Cafe Owner)
+### Admin (Cafe Owner)
 - Secure login using his email and password ,
 - if dont have account contact the supper admin and ask him to create account
 - Add, update, and delete products
 - Manage cafe menu and orders
 - Access protected admin routes
 
-### 🛡 Super Admin
+###  Super Admin
 - Full system control
 - Create, update, and remove admin accounts
 - Manage admin privileges
 - Oversee the entire cafe system
 
-### 🔐 Security
+###  Security
 - Role-based access control (RBAC)
 - Protected admin and super admin routes
 - Public access limited to browsing and ordering
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 ├── backend
 
 │ ├── routes
@@ -67,8 +67,6 @@ A full-stack **Cafe Menu Management System**
 │ ├── controllers
 
 │ ├── middleware
-
-│ ├── prisma
 
 │ ├── config
 
@@ -94,7 +92,7 @@ A full-stack **Cafe Menu Management System**
 
 ---
 
-## ⚙️ Environment Variables
+##  Environment Variables
 
 The backend uses environment variables for configuration.  
 
@@ -112,21 +110,8 @@ JWT_SECRET='<your_secret_key_of_json_web_token>'
 EXPIRE_TIME=<'token _expire_time'>
 
 
-## 🧪 Prisma Setup
 
-Run the following commands inside the backend directory:
-
-npx prisma generate
-
-npx prisma migrate deploy
-
-
-For local development:
-
-npx prisma migrate dev
-
-
-## ▶️ Run Locally
+##  Run Locally
 
 # Backend
 
@@ -141,7 +126,7 @@ cd frontend
 npm install
 npm run dev
 
-## 📡 API Overview
+##  API Overview
 
 Method	Endpoint	Description
 
@@ -173,7 +158,7 @@ POST	/user/delete/:id	remove Admin(superadmin)
 
 
 
-## 🧠 What This Project Demonstrates
+##  What This Project Demonstrates
 
 Full-stack application architecture
 
@@ -186,7 +171,7 @@ Secure environment variable handling
 
 Production deployment with Render
 
-## 📌 Future Improvements
+##  Future Improvements
 
 Order tracking system
 
@@ -198,8 +183,8 @@ Image upload for products
 
 Email notifications
 
-## 👤 Author
+##  Author
  
 teumay werashe
 
-⭐ If you like this project, feel free to give it a star!
+ If you like this project, feel free to give it a star!
