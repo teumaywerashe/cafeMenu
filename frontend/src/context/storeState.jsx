@@ -98,9 +98,16 @@ export const useStoreState = () => {
    
   };
 
+  const [itemsLoading, setItemsLoading] = useState(false);
+
   const getUserItems = async (ownerId) => {
-    const response = await axios.get(`${url}/items/get/${ownerId}`);
-    setUserItems(response.data.success ? response.data.items : []);
+    setItemsLoading(true);
+    try {
+      const response = await axios.get(`${url}/items/get/${ownerId}`);
+      setUserItems(response.data.success ? response.data.items : []);
+    } finally {
+      setItemsLoading(false);
+    }
   };
 
   const getCafe = async (id) => {
@@ -144,6 +151,7 @@ export const useStoreState = () => {
     ownerId,
     setOwnerId,
     getUserItems,
+    itemsLoading,
     deleteItem,
     setCategory,
     categories,

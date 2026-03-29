@@ -7,7 +7,6 @@ export const accountRequestRouter = express.Router();
 // Public: anyone can submit a request
 accountRequestRouter.post("/submit", submitRequest);
 
-// Protected: only superadmin can view/manage requests
 accountRequestRouter.get("/all", authMiddleware, isSupperAdminAdmin, getAllRequests);
 accountRequestRouter.patch("/status/:id", authMiddleware, isSupperAdminAdmin, updateRequestStatus);
 accountRequestRouter.delete("/remove/:id", authMiddleware, isSupperAdminAdmin, deleteRequest);

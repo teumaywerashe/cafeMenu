@@ -56,8 +56,10 @@ function AddItem() {
         formData.append(key, data[key]);
       }
       const response = await axios.post(`${url}/items/add`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
-        "Content-Type": "multipart/form-data",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
       });
       if (response.data.success) {
         // console.log(response.data.item);

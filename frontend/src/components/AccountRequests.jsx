@@ -11,12 +11,15 @@ function AccountRequests() {
   const [filter, setFilter] = useState("all");
 
   const fetchRequests = async () => {
+    console.log(token);
     try {
       const res = await axios.get(`${url}/requests/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log(res.data);
       if (res.data.success) setRequests(res.data.requests);
     } catch (err) {
+      console.log(err);
       toast.error("Failed to load requests.");
     } finally {
       setLoading(false);
