@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const useStoreState = () => {
   const navigate = useNavigate();
+  
   const url = import.meta.env.VITE_API_URL;
 
   const [searchParams] = useSearchParams();

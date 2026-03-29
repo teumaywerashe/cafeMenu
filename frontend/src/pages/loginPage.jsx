@@ -149,6 +149,7 @@ function LoginPage() {
               <a
                 href="#"
                 className="font-medium text-orange-600 hover:text-orange-700 hover:underline"
+                onClick={(e) => { e.preventDefault(); navigate("/forgot-password"); }}
               >
                 Forgot password?
               </a>
