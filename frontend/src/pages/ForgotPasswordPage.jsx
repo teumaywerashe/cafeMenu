@@ -79,10 +79,10 @@ function ForgotPasswordPage() {
 
         <div className="w-full max-w-md">
           <div className="mb-10 text-center md:text-left">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Reset Password</h2>
-            <p className="text-gray-500">
+           { message? <h2 className="text-3xl font-bold text-green-400 mb-2">Reset Email Sent!</h2>: <h2 className="text-3xl font-bold text-gray-900 mb-2">Reset Password</h2>
+         } {!message&&  <p className="text-gray-500">
               Enter your email and we'll send you a link to reset your password.
-            </p>
+            </p>}
           </div>
 
           {message ? (

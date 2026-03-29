@@ -2,11 +2,10 @@ import React, { useContext, useState } from "react";
 import { FaLock, FaEye, FaEyeSlash, FaArrowLeft, FaCoffee } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { useStoreState } from "../context/storeState";
+import { StoreContext } from "../context/storeContext";
 
 function ResetPasswordPage() {
-
-  const {url}=useContext(useStoreState)
+  const { url } = useContext(StoreContext);
   const { token } = useParams();
   const navigate = useNavigate();
   const [password, setPassword] = useState("");

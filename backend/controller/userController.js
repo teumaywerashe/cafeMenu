@@ -8,7 +8,7 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const createToken = ({ id, role, name }) => {
     return jwt.sign({ id, role, name }, process.env.JWT_SECRET, {
-        expiresIn: process.env.EXPIRE_TIME,
+        expiresIn: process.env.EXPIRES_TIME || "3d",
     });
 };
 
