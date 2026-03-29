@@ -12,6 +12,7 @@ const __dirname = path.dirname(__filename);
 import { connectDB } from "./config/db.js";
 import { userRouter } from "./route/userRouter.js";
 import { itemRouter } from "./route/itemRouter.js";
+import { accountRequestRouter } from "./route/accountRequestRouter.js";
 dotenv.config();
 const app = express();
 
@@ -41,6 +42,7 @@ app.use(
 
 app.use("/user", userRouter);
 app.use("/items", itemRouter);
+app.use("/requests", accountRequestRouter);
 const port = 3000 || process.env.PORT;
 
 const start = async() => {

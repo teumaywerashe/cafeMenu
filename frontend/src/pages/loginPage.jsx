@@ -201,7 +201,7 @@ function LoginPage() {
           {/* Divider for Signup (Optional) */}
           <p className="text-center text-sm text-gray-500 mt-8">
             Don't have an account?{" "}
-            <a href="#" className="font-bold text-gray-900 hover:underline">
+            <a href="#" className="font-bold text-gray-900 hover:underline" onClick={(e) => { e.preventDefault(); navigate("/contact-admin"); }}>
               Contact Admin
             </a>
           </p>

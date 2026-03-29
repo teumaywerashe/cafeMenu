@@ -5,6 +5,7 @@ import {
   FaUtensils,
   FaSignOutAlt,
   FaCoffee,
+  FaClipboardList,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { StoreContext } from "../context/storeContext";
@@ -54,6 +55,11 @@ function Sidebar() {
         <NavLink to="/superadmin/management" className={getLinkClasses}>
           <FaUtensils size={18} />
           <span>User Management</span>
+        </NavLink>
+
+        <NavLink to="/superadmin/requests" className={getLinkClasses}>
+          <FaClipboardList size={18} />
+          <span>Account Requests</span>
         </NavLink>
 
         <NavLink to="/superadmin/setting" className={getLinkClasses}>
