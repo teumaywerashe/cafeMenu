@@ -86,9 +86,14 @@ function ItemsDisplay() {
               </div>
               <div className="flex-1 max-w-[40%] h-full overflow-hidden bg-gray-100">
                 <img
-                  src={`${url}/uploads/${item.image}`}
+                  src={
+                    item.image?.startsWith("http")
+                      ? item.image                          // Cloudinary full URL
+                      : `${url}/uploads/${item.image}`     // legacy local file
+                  }
                   alt={item.name}
                   className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
                 />
               </div>
             </div>

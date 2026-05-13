@@ -8,7 +8,16 @@ function ItemDisplay({ item }: { item: any }) {
 
   return (
     <div className="fles flex-col relative sm:grid grid-cols-[100px_8fr_10fr_10fr_50px] gap-2.5 p-2.5 border border-amber-400 m-2 rounded-2xl shadow-[0_1px_10px_grey]">
-      <img className="w-16 h-16 object-cover rounded-md shadow" src={item?.image} alt={item?.name} />
+      <img
+        className="w-16 h-16 object-cover rounded-md shadow"
+        src={
+          item?.image?.startsWith("http")
+            ? item.image                                    // Cloudinary full URL
+            : `${import.meta.env.VITE_API_URL}/uploads/${item?.image}` // legacy
+        }
+        alt={item?.name}
+        loading="lazy"
+      />
       <p className="font-semibold text-gray-900">{item?.name}</p>
       <p className="text-gray-600 text-sm truncate">{item?.description}</p>
       <p className="text-gray-700 font-medium">{item?.category}</p>
