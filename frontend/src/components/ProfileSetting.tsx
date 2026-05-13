@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../context/storeContext";
 import toast from "react-hot-toast";
+import { resolveImage } from "../utils/imageUrl";
 
 function ProfileSetting() {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ function ProfileSetting() {
         <div className="relative px-8">
           <div className="-mt-16 w-32 h-32 rounded-full border-4 border-white shadow-md bg-gray-200 relative group mx-auto md:mx-0">
             <img
-              src={user.profileImage ? `${url}/uploads/${user.profileImage}` : previewUrl}
+              src={resolveImage(user.profileImage, previewUrl, url)}
               alt="Profile"
               className="w-full h-full object-cover rounded-full"
             />

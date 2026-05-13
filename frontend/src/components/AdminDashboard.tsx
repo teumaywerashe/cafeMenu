@@ -78,7 +78,11 @@ function AdminDashboard() {
               <div className="flex items-center justify-between w-full md:w-auto">
                 <img
                   className="w-16 h-16 object-cover rounded-lg shadow-sm group-hover:scale-105 transition-transform duration-300"
-                  src={`${url}/uploads/${item.image}`}
+                  src={
+          item?.image?.startsWith("http")
+            ? item.image                                    // Cloudinary full URL
+            : `${import.meta.env.VITE_API_URL}/uploads/${item?.image}` // legacy
+        }
                   alt={item.name}
                 />
                 <span className="md:hidden text-lg font-bold text-gray-900">{item.price * 10} Birr</span>

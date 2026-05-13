@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../context/storeContext";
 import Navebar from "../components/Navebar";
+import Footer from "../components/Footer";
+import { resolveImage } from "../utils/imageUrl";
 import { FaSearch, FaCoffee, FaUtensils, FaStar } from "react-icons/fa";
 import { MdStorefront } from "react-icons/md";
 import { ChevronRight } from "lucide-react";
@@ -29,7 +31,7 @@ function CafeCard({ user, index }: { user: any; index: number }) {
       <div className="relative h-40 overflow-hidden flex items-center justify-center bg-white/40">
         {hasImage ? (
           <img
-            src={`${url}/uploads/${user.profileImage}`}
+            src={resolveImage(user.profileImage, "", url)}
             alt={user.name}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
@@ -170,6 +172,7 @@ function UserList() {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

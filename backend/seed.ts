@@ -21,16 +21,23 @@ cloudinary.config({
 const hash = async (pw: string) => bcrypt.hash(pw, await bcrypt.genSalt(10));
 
 async function uploadFromUrl(imageUrl: string, folder: string, publicId: string): Promise<string> {
+    const isProfile = folder.includes("profiles");
     return new Promise((resolve, reject) => {
         cloudinary.uploader.upload(imageUrl, {
             folder,
             public_id: publicId,
             overwrite: true,
-            transformation: [
-                { width: 800, height: 600, crop: "fill", gravity: "auto" },
-                { quality: "auto:good" },
-                { fetch_format: "auto" },
-            ],
+            transformation: isProfile
+                ? [
+                    { width: 400, height: 400, crop: "fill", gravity: "face" },
+                    { quality: "auto:good" },
+                    { fetch_format: "auto" },
+                ]
+                : [
+                    { width: 800, height: 600, crop: "fill", gravity: "auto" },
+                    { quality: "auto:good" },
+                    { fetch_format: "auto" },
+                ],
         }, (error, result) => {
             if (error || !result) return reject(error);
             resolve(result.secure_url);
@@ -44,16 +51,23 @@ const superAdmin = {
     email: "superadmin@cafemenu.com",
     password: "SuperAdmin@123",
     role: "superadmin",
+    profileImageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face"
 };
 
 // ── Cafe Owners ───────────────────────────────────────────────────────────────
 const cafeOwners = [
-    { name: "Abebe Kebede",    email: "abebe@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Addis Buna Cafe"      },
-    { name: "Tigist Haile",    email: "tigist@cafemenu.com",   password: "Admin@1234", role: "admin", cafeName: "Sheger Coffee House"   },
-    { name: "Dawit Tesfaye",   email: "dawit@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Habesha Kitchen"       },
-    { name: "Selam Girma",     email: "selam@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Lalibela Bistro"       },
-    { name: "Yonas Bekele",    email: "yonas@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Blue Nile Grill"       },
-    { name: "Meron Tadesse",   email: "meron@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Entoto Garden Cafe"    },
+    { name: "Abebe Kebede",    email: "abebe@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Addis Buna Cafe",
+      profileImageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face" },
+    { name: "Tigist Haile",    email: "tigist@cafemenu.com",   password: "Admin@1234", role: "admin", cafeName: "Sheger Coffee House",
+      profileImageUrl: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=400&fit=crop&crop=face" },
+    { name: "Dawit Tesfaye",   email: "dawit@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Habesha Kitchen",
+      profileImageUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face" },
+    { name: "Selam Girma",     email: "selam@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Lalibela Bistro",
+      profileImageUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face" },
+    { name: "Yonas Bekele",    email: "yonas@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Blue Nile Grill",
+      profileImageUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face" },
+    { name: "Meron Tadesse",   email: "meron@cafemenu.com",    password: "Admin@1234", role: "admin", cafeName: "Entoto Garden Cafe",
+      profileImageUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face" },
 ];
 
 // ── Menu Items ────────────────────────────────────────────────────────────────
@@ -178,13 +192,28 @@ async function seed() {
 
     // Cafe Owners + Items
     for (const owner of cafeOwners) {
+        // Upload profile image to Cloudinary
+        process.stdout.write(`\n🖼️  Uploading profile image for ${owner.name}...`);
+        let profileImage: string = "default.jpg";
+        try {
+            profileImage = await uploadFromUrl(
+                owner.profileImageUrl,
+                "cafemenu/profiles",
+                owner.name.replace(/\s+/g, "_").toLowerCase()
+            );
+            process.stdout.write(" ✅\n");
+        } catch {
+            process.stdout.write(" ⚠️  (using default)\n");
+        }
+
         const ownerDoc = await userModel.create({
             name: owner.name,
             email: owner.email,
             password: await hash(owner.password),
             role: owner.role,
+            profileImage,
         });
-        console.log(`\n☕ Cafe owner created: ${ownerDoc.email} (${owner.cafeName})`);
+        console.log(`☕ Cafe owner created: ${ownerDoc.email} (${owner.cafeName})`);
 
         const items = menuItems[owner.cafeName];
         for (const item of items) {

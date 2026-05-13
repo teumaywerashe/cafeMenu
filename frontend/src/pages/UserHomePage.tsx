@@ -1,7 +1,7 @@
-import React from "react";
 import Heros from "../components/Heros";
 import Navbar from "../components/Navebar";
 import ItemsDisplay from "../components/ItemsDisplay";
+import Footer from "../components/Footer";
 
 function UserHomePage() {
   return (
@@ -9,6 +9,7 @@ function UserHomePage() {
       <Navbar />
       <Heros />
       <ItemsDisplay />
+      <Footer />
     </>
   );
 }

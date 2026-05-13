@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../context/storeContext";
 import { assets } from "../assets/assets";
+import { resolveImage } from "../utils/imageUrl";
 
 function SuperAdminDashboard() {
   const { getUsers, users, url } = useContext(StoreContext);
@@ -8,6 +9,7 @@ function SuperAdminDashboard() {
 
   useEffect(() => {
     getUsers();
+    console.log(users)
   }, []);
 
   const filteredUsers = users.filter((user: any) =>
@@ -57,7 +59,7 @@ function SuperAdminDashboard() {
               <div className="flex items-center justify-between w-full md:w-auto">
                 <img
                   className="w-16 h-16 object-cover rounded-lg shadow-sm group-hover:scale-105 transition-transform duration-300"
-                  src={user.profileImage === "default.jpg" ? assets.profile_icon : `${url}/uploads/${user.profileImage}`}
+                  src={resolveImage(user.profileImage, assets.profile_icon, url)}
                   alt={user.name}
                 />
               </div>

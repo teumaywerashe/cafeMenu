@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { FaCog, FaTachometerAlt, FaUtensils, FaSignOutAlt, FaCoffee } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { StoreContext } from "../context/storeContext";
+import { resolveImage } from "../utils/imageUrl";
 
 function Sidebar() {
   const { user, logOut, url } = useContext(StoreContext);
@@ -39,7 +40,7 @@ function Sidebar() {
         <div className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
           <div className="w-10 h-10 rounded-full bg-gray-200 overflow-hidden">
             <img
-              src={user.profileImage ? `${url}/uploads/${user.profileImage}` : "https://ui-avatars.com/api/?name=Super+Admin&background=random"}
+              src={resolveImage(user.profileImage, "https://ui-avatars.com/api/?name=Admin&background=random", url)}
               alt="Admin"
             />
           </div>

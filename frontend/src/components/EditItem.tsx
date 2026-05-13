@@ -73,7 +73,13 @@ function EditItem() {
             <div className="w-full md:w-1/3 flex flex-col gap-4">
               <label className="font-semibold text-gray-700">Edit Image</label>
               <div className="relative group w-full aspect-4/3 bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden hover:border-orange-400 hover:bg-orange-50 transition-all cursor-pointer">
-                <img src={image ? previewUrl! : `${url}/uploads/${item.image}`} alt="Preview" className="w-full h-full object-cover" />
+                <img 
+                 src={image ? previewUrl! :
+          item?.image?.startsWith("http")
+            ? item.image                                    // Cloudinary full URL
+            : `${import.meta.env.VITE_API_URL}/uploads/${item?.image}` // legacy
+        }
+               alt="Preview" className="w-full h-full object-cover" />
                 <input type="file" onChange={onImageChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
               </div>
               <p className="text-xs text-gray-400 text-center">Supports: JPG, PNG, WEBP (Max 5MB)</p>

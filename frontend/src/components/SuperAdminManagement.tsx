@@ -3,6 +3,7 @@ import { StoreContext } from "../context/storeContext";
 import { useNavigate } from "react-router-dom";
 import { FaEdit, FaPlus, FaSearch, FaTrashAlt } from "react-icons/fa";
 import { assets } from "../assets/assets";
+import { resolveImage } from "../utils/imageUrl";
 
 function SuperAdminManagement() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function SuperAdminManagement() {
             <div key={i} className="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={user.profileImage === "default.jpg" ? assets.profile_icon : `${url}/uploads/${user.profileImage}`}
+                  src={resolveImage(user.profileImage, assets.profile_icon, url)}
                   alt={user.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />

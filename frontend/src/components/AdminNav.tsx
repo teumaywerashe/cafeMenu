@@ -7,6 +7,7 @@ import {
 import logo from "../assets/images";
 import { assets } from "../assets/assets";
 import { StoreContext } from "../context/storeContext";
+import { resolveImage } from "../utils/imageUrl";
 
 function AdminNav() {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ function AdminNav() {
             >
               <img
                 className="w-9 h-9 rounded-full object-cover border border-gray-200 group-hover:border-orange-500 transition-all"
-                src={user.profileImage === "default.jpg" ? assets.profile_icon : `${url}/uploads/${user.profileImage}`}
+                src={resolveImage(user.profileImage, assets.profile_icon, url)}
                 alt="Profile"
               />
               <div className="hidden md:block text-left">

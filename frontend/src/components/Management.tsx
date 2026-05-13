@@ -66,7 +66,11 @@ function Management() {
             <div key={i} className="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={`${url}/uploads/${item.image}`}
+                src={
+          item?.image?.startsWith("http")
+            ? item.image                                    // Cloudinary full URL
+            : `${import.meta.env.VITE_API_URL}/uploads/${item?.image}` // legacy
+        }
                   alt={item.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
